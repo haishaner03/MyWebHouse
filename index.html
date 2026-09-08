@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的生活记录</title>
+
+    <style>
+        :root {
+            --bg: #f7f4ee;
+            --card: rgba(255, 255, 255, 0.82);
+            --text: #263238;
+            --muted: #7b8586;
+            --primary: #52796f;
+            --primary-dark: #354f52;
+            --accent: #e09f3e;
+            --line: #e6e0d6;
+            --shadow: 0 18px 45px rgba(53, 79, 82, 0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(224, 159, 62, 0.14), transparent 28%),
+                radial-gradient(circle at 90% 15%, rgba(82, 121, 111, 0.16), transparent 30%),
+                var(--bg);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            width: min(1160px, calc(100% - 36px));
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border-radius: 14px;
+            color: white;
+            background: var(--primary-dark);
+            box-shadow: 0 8px 18px rgba(53, 79, 82, 0.22);
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: var(--primary-dark);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 34px;
+            align-items: stretch;
+            padding: 46px;
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(255,255,255,.48));
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .eyebrow {
+            margin: 0 0 14px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .16em;
+        }
+
+        h1 {
+            max-width: 680px;
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: clamp(36px, 6vw, 70px);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-copy {
+            max-width: 620px;
+            margin: 22px 0 0;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 20px;
+            border: 0;
+            border-radius: 999px;
+            color: white;
+            background: var(--primary-dark);
+            cursor: pointer;
+            font: inherit;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(53, 79, 82, .18);
+        }
+
+        .button.secondary {
+            color: var(--primary-dark);
+            background: #ece7dc;
+        }
+
+        .hero-note {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 260px;
+            padding: 26px;
+            border-radius: 22px;
+            color: white;
+            background:
+                linear-gradient(145deg, rgba(53,79,82,.96), rgba(82,121,111,.92));
+        }
+
+        .hero-note-label {
+            color: #f2d39a;
+            font-size: 13px;
+        }
+
+        .hero-note blockquote {
+            margin: 35px 0 0;
+            font-size: 28px;
+            line-height: 1.45;
+        }
+
+        .hero-note small {
+            color: rgba(255, 255, 255, .68);
+        }
+
+        section {
+            padding: 72px 0 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 29px;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: var(--card);
+            box-shadow: 0 10px 28px rgba(53, 79, 82, .06);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            transition: transform .2s;
+        }
+
+        .card-tag {
+            display: inline-block;
+            margin-bottom: 16px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: var(--primary);
+            background: #e5eee9;
+            font-size: 12px;
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            color: var(--primary-dark);
+            font-size: 20px;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .diary-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 210px;
+        }
+
+        .diary-date {
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .study-card {
+            min-height: 170px;
+        }
+
+        .photo-card {
+            min-height: 230px;
+            display: flex;
+            align-items: end;
+            padding: 20px;
+            color: white;
+            background:
+                linear-gradient(180deg, transparent, rgba(0,0,0,.68)),
+                linear-gradient(135deg, #8aa39b, #d7a868);
+        }
+
+        .photo-card:nth-child(2) {
+            background:
+                linear-gradient(180deg, transparent, rgba(0,0,0,.68)),
+                linear-gradient(135deg, #8497ad, #536a7f);
+        }
+
+        .photo-card:nth-child(3) {
+            background:
+                linear-gradient(180deg, transparent, rgba(0,0,0,.68)),
+                linear-gradient(135deg, #b98871, #6f4a4c);
+        }
+
+        .photo-card h3 {
+            margin: 0 0 6px;
+            color: white;
+        }
+
+        .timeline {
+            position: relative;
+            display: grid;
+            gap: 18px;
+        }
+
+        .timeline::before {
+            position: absolute;
+            top: 12px;
+            bottom: 12px;
+            left: 9px;
+            width: 2px;
+            background: var(--line);
+            content: "";
+        }
+
+        .timeline-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: 28px 120px 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .timeline-dot {
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            border: 5px solid var(--bg);
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .timeline-date {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .timeline-content {
+            padding-bottom: 8px;
+        }
+
+        .timeline-content h3 {
+            margin: 0 0 6px;
+            color: var(--primary-dark);
+        }
+
+        .timeline-content p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        footer {
+            padding: 80px 0 34px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 780px) {
+            .page {
+                width: min(100% - 24px, 620px);
+            }
+
+            header {
+                align-items: flex-start;
+                gap: 18px;
+                flex-direction: column;
+            }
+
+            nav {
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 28px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                gap: 8px;
+                flex-direction: column;
+            }
+
+            .timeline-item {
+                grid-template-columns: 24px 1fr;
+            }
+
+            .timeline-date {
+                grid-column: 2;
+            }
+
+            .timeline-content {
+                grid-column: 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <a class="brand" href="#">
+                <span class="brand-mark">✦</span>
+                <span>我的生活记录</span>
+            </a>
+
+            <nav>
+                <a href="#diary">日记</a>
+                <a href="#study">学习</a>
+                <a href="#gallery">相册</a>
+                <a href="#timeline">时间线</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div>
+                    <p class="eyebrow">MY LITTLE DIGITAL GARDEN</p>
+                    <h1>把生活写下来，慢慢长成自己的样子。</h1>
+                    <p class="hero-copy">
+                        这里记录日常、学习、灵感和照片。
+                        不追求完美，只保留真实发生过的片段。
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="button" href="#diary">阅读日记</a>
+                        <a class="button secondary" href="#study">查看学习资料</a>
+                    </div>
+                </div>
+
+                <aside class="hero-note">
+                    <span class="hero-note-label">TODAY'S NOTE</span>
+                    <blockquote>
+                        “认真生活，记录每一个值得记住的瞬间。”
+                    </blockquote>
+                    <small>2026 · 我的个人空间</small>
+                </aside>
+            </section>
+
+            <section id="diary">
+                <div class="section-heading">
+                    <h2>最近日记</h2>
+                    <p>写给未来的自己</p>
+                </div>
+
+                <div class="grid">
+                    <article class="card diary-card">
+                        <div>
+                            <div class="diary-date">2026.09.08</div>
+                            <h3>网站的第一天</h3>
+                            <p>今天开始搭建自己的生活记录网站，希望以后可以把学习和日常都整理下来。</p>
+                        </div>
+                        <span class="card-tag">生活</span>
+                    </article>
+
+                    <article class="card diary-card">
+                        <div>
+                            <div class="diary-date">2026.09.07</div>
+                            <h3>关于持续学习</h3>
+                            <p>比起一次学很多，更重要的是每天都留下一点真正理解的东西。</p>
+                        </div>
+                        <span class="card-tag">思考</span>
+                    </article>
+
+                    <article class="card diary-card">
+                        <div>
+                            <div class="diary-date">2026.09.05</div>
+                            <h3>周末的片刻</h3>
+                            <p>天气很好，出去走了走。生活不只有任务，也需要留一点空白。</p>
+                        </div>
+                        <span class="card-tag">日常</span>
+                    </article>
+                </div>
+            </section>
+
+            <section id="study">
+                <div class="section-heading">
+                    <h2>学习资料</h2>
+                    <p>把知识整理成自己的东西</p>
+                </div>
+
+                <div class="grid">
+                    <article class="card study-card">
+                        <span class="card-tag">Unity3D</span>
+                        <h3>Unity 客户端面试题</h3>
+                        <p>生命周期、协程、对象池、资源管理和性能优化。</p>
+                    </article>
+
+                    <article class="card study-card">
+                        <span class="card-tag">C#</span>
+                        <h3>C# 基础笔记</h3>
+                        <p>值类型、引用类型、集合、委托、事件和 GC。</p>
+                    </article>
+
+                    <article class="card study-card">
+                        <span class="card-tag">Web</span>
+                        <h3>网页部署记录</h3>
+                        <p>Git、Nginx、腾讯云服务器和域名解析的实践过程。</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="gallery">
+                <div class="section-heading">
+                    <h2>照片记忆</h2>
+                    <p>没有照片的日子，也值得被记住</p>
+                </div>
+
+                <div class="grid">
+                    <article class="card photo-card">
+                        <div>
+                            <h3>秋天的下午</h3>
+                            <p>阳光落在路边的树叶上</p>
+                        </div>
+                    </article>
+
+                    <article class="card photo-card">
+                        <div>
+                            <h3>路上的风景</h3>
+                            <p>去见想见的人，走想走的路</p>
+                        </div>
+                    </article>
+
+                    <article class="card photo-card">
+                        <div>
+                            <h3>平凡的一天</h3>
+                            <p>普通日子也有自己的光</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="timeline">
+                <div class="section-heading">
+                    <h2>我的时间线</h2>
+                    <p>正在发生，也已经发生</p>
+                </div>
+
+                <div class="timeline">
+                    <article class="timeline-item">
+                        <span class="timeline-dot"></span>
+                        <span class="timeline-date">2026.09</span>
+                        <div class="timeline-content">
+                            <h3>开始制作个人网站</h3>
+                            <p>用 Git 管理项目，并把第一个版本部署到腾讯云。</p>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item">
+                        <span class="timeline-dot"></span>
+                        <span class="timeline-date">2026.08</span>
+                        <div class="timeline-content">
+                            <h3>继续准备 Unity 面试</h3>
+                            <p>整理项目经历，复习 C#、Unity 和游戏客户端知识。</p>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item">
+                        <span class="timeline-dot"></span>
+                        <span class="timeline-date">更早以前</span>
+                        <div class="timeline-content">
+                            <h3>还有很多故事</h3>
+                            <p>以后慢慢补上。</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            © 2026 我的生活记录 · 写下今天，留给明天
+        </footer>
+    </div>
+</body>
+</html>
