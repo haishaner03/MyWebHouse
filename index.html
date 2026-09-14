@@ -350,13 +350,54 @@
         }
 
         .login-screen {
+            position: relative;
             display: grid;
             min-height: 100vh;
             place-items: center;
             padding: 28px 0;
         }
 
+        .login-bg-cats {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-cat {
+            position: absolute;
+            opacity: .16;
+        }
+
+        .bg-cat svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            animation: cat-float 5s ease-in-out infinite;
+        }
+
+        .bg-cat.cat-1 { top: 8%; left: 6%; width: 72px; color: #f5c97b; transform: rotate(-12deg); }
+        .bg-cat.cat-1 svg { animation-delay: 0s; }
+        .bg-cat.cat-2 { top: 14%; right: 9%; width: 56px; color: #8aa39b; transform: rotate(15deg); }
+        .bg-cat.cat-2 svg { animation-delay: 1.2s; }
+        .bg-cat.cat-3 { bottom: 22%; left: 9%; width: 62px; color: #b98871; transform: rotate(8deg); }
+        .bg-cat.cat-3 svg { animation-delay: 2s; }
+        .bg-cat.cat-4 { bottom: 14%; right: 11%; width: 80px; color: #e09f3e; transform: rotate(-8deg); }
+        .bg-cat.cat-4 svg { animation-delay: .8s; }
+        .bg-cat.cat-5 { top: 46%; left: 3%; width: 46px; color: #8497ad; transform: rotate(20deg); }
+        .bg-cat.cat-5 svg { animation-delay: 1.6s; }
+        .bg-cat.cat-6 { top: 56%; right: 4%; width: 52px; color: #b75e64; transform: rotate(-15deg); }
+        .bg-cat.cat-6 svg { animation-delay: 2.4s; }
+
+        @keyframes cat-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         .login-card {
+            position: relative;
+            z-index: 1;
             width: min(100%, 470px);
             padding: 42px;
             border: 1px solid rgba(255, 255, 255, 0.9);
@@ -1343,6 +1384,14 @@
 
 <body>
     <section class="login-screen page" id="loginScreen" aria-labelledby="loginTitle">
+        <div class="login-bg-cats" aria-hidden="true">
+            <span class="bg-cat cat-1"><svg viewBox="0 0 64 64"><path d="M14 24 L10 8 L26 18 Z" fill="currentColor"/><path d="M50 24 L54 8 L38 18 Z" fill="currentColor"/><circle cx="32" cy="36" r="20" fill="currentColor"/><circle cx="25" cy="34" r="2.5" fill="#3a2e2a"/><circle cx="39" cy="34" r="2.5" fill="#3a2e2a"/><path d="M30 40 L34 40 L32 43 Z" fill="#f2a6a0"/><path d="M32 43 Q29 46 27 44 M32 43 Q35 46 37 44" stroke="#3a2e2a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></span>
+            <span class="bg-cat cat-2"><svg viewBox="0 0 64 64"><path d="M14 24 L10 8 L26 18 Z" fill="currentColor"/><path d="M50 24 L54 8 L38 18 Z" fill="currentColor"/><circle cx="32" cy="36" r="20" fill="currentColor"/><circle cx="25" cy="34" r="2.5" fill="#3a2e2a"/><circle cx="39" cy="34" r="2.5" fill="#3a2e2a"/><path d="M30 40 L34 40 L32 43 Z" fill="#f2a6a0"/><path d="M32 43 Q29 46 27 44 M32 43 Q35 46 37 44" stroke="#3a2e2a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></span>
+            <span class="bg-cat cat-3"><svg viewBox="0 0 64 64"><path d="M14 24 L10 8 L26 18 Z" fill="currentColor"/><path d="M50 24 L54 8 L38 18 Z" fill="currentColor"/><circle cx="32" cy="36" r="20" fill="currentColor"/><circle cx="25" cy="34" r="2.5" fill="#3a2e2a"/><circle cx="39" cy="34" r="2.5" fill="#3a2e2a"/><path d="M30 40 L34 40 L32 43 Z" fill="#f2a6a0"/><path d="M32 43 Q29 46 27 44 M32 43 Q35 46 37 44" stroke="#3a2e2a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></span>
+            <span class="bg-cat cat-4"><svg viewBox="0 0 64 64"><path d="M14 24 L10 8 L26 18 Z" fill="currentColor"/><path d="M50 24 L54 8 L38 18 Z" fill="currentColor"/><circle cx="32" cy="36" r="20" fill="currentColor"/><circle cx="25" cy="34" r="2.5" fill="#3a2e2a"/><circle cx="39" cy="34" r="2.5" fill="#3a2e2a"/><path d="M30 40 L34 40 L32 43 Z" fill="#f2a6a0"/><path d="M32 43 Q29 46 27 44 M32 43 Q35 46 37 44" stroke="#3a2e2a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></span>
+            <span class="bg-cat cat-5"><svg viewBox="0 0 64 64"><path d="M14 24 L10 8 L26 18 Z" fill="currentColor"/><path d="M50 24 L54 8 L38 18 Z" fill="currentColor"/><circle cx="32" cy="36" r="20" fill="currentColor"/><circle cx="25" cy="34" r="2.5" fill="#3a2e2a"/><circle cx="39" cy="34" r="2.5" fill="#3a2e2a"/><path d="M30 40 L34 40 L32 43 Z" fill="#f2a6a0"/><path d="M32 43 Q29 46 27 44 M32 43 Q35 46 37 44" stroke="#3a2e2a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></span>
+            <span class="bg-cat cat-6"><svg viewBox="0 0 64 64"><path d="M14 24 L10 8 L26 18 Z" fill="currentColor"/><path d="M50 24 L54 8 L38 18 Z" fill="currentColor"/><circle cx="32" cy="36" r="20" fill="currentColor"/><circle cx="25" cy="34" r="2.5" fill="#3a2e2a"/><circle cx="39" cy="34" r="2.5" fill="#3a2e2a"/><path d="M30 40 L34 40 L32 43 Z" fill="#f2a6a0"/><path d="M32 43 Q29 46 27 44 M32 43 Q35 46 37 44" stroke="#3a2e2a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></span>
+        </div>
         <div class="login-card">
             <div class="brand">
                 <span class="brand-mark">✦</span>
