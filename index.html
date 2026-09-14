@@ -822,6 +822,20 @@
             animation: none;
         }
 
+        /* 子页面入场动画 */
+        .app-view:not(#homeView) .view-banner {
+            animation: fade-up .55s var(--ease-out) .05s both;
+        }
+
+        .app-view:not(#homeView) .entry-grid,
+        .app-view:not(#homeView) .study-overview,
+        .app-view:not(#homeView) .study-toolbar,
+        .app-view:not(#homeView) .qa-grid,
+        .app-view:not(#homeView) .gallery-grid,
+        .app-view:not(#homeView) .anniversary-list {
+            animation: fade-up .55s var(--ease-out) .15s both;
+        }
+
         .home-layout {
             display: grid;
             grid-template-columns: 1.25fr .75fr;
@@ -1285,6 +1299,13 @@
             border-radius: 17px;
             background: rgba(255,255,255,.8);
             overflow: hidden;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+
+        .qa-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(53,79,82,.1);
+            border-color: rgba(82,121,111,.3);
         }
 
         .qa-card[hidden] { display: none; }
@@ -2274,10 +2295,34 @@
             });
         });
 
+        function animateNumber(element, target, duration = 1000) {
+            const start = 0;
+            const startTime = performance.now();
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(start + (target - start) * easeProgress);
+                element.textContent = current.toString().padStart(2, '0');
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
         function showApp() {
             loginScreen.hidden = true;
             mainApp.hidden = false;
             showView("home");
+            setTimeout(() => {
+                const statNumbers = document.querySelectorAll('.profile-stat strong');
+                if (statNumbers[0]) animateNumber(statNumbers[0], 12, 1200);
+                if (statNumbers[1]) animateNumber(statNumbers[1], 8, 1200);
+                const annivEl = document.getElementById("anniversaryDaysShort");
+                if (annivEl) {
+                    const days = parseInt(annivEl.textContent) || 0;
+                    animateNumber(annivEl, days, 1200);
+                }
+            }, 300);
         }
 
         function showLogin() {
