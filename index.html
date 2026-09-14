@@ -349,6 +349,919 @@
             font-size: 13px;
         }
 
+        .login-screen {
+            display: grid;
+            min-height: 100vh;
+            place-items: center;
+            padding: 28px 0;
+        }
+
+        .login-card {
+            width: min(100%, 470px);
+            padding: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,255,255,.56));
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .login-card .brand {
+            margin-bottom: 34px;
+        }
+
+        .login-card h1 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: clamp(32px, 6vw, 50px);
+            letter-spacing: -0.04em;
+        }
+
+        .login-intro {
+            margin: 14px 0 28px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .login-form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .field {
+            display: grid;
+            gap: 8px;
+            color: var(--primary-dark);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            color: var(--text);
+            background: rgba(255, 255, 255, .75);
+            font: inherit;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .field input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(82, 121, 111, .14);
+        }
+
+        .login-button {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .guest-button {
+            width: 100%;
+            margin-top: 0;
+        }
+
+        .login-error {
+            min-height: 20px;
+            margin: 0;
+            color: #a54f43;
+            font-size: 13px;
+        }
+
+        .session-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logout-button {
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--primary-dark);
+            background: rgba(255, 255, 255, .55);
+            cursor: pointer;
+            font: inherit;
+            font-size: 13px;
+        }
+
+        .logout-button:hover {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .click-ripple {
+            position: fixed;
+            z-index: 20;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(224, 159, 62, .78);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(.4);
+            animation: ripple-expand .65s ease-out forwards;
+        }
+
+        @keyframes ripple-expand {
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(4.2);
+            }
+        }
+
+        .cursor-trail-canvas {
+            position: fixed;
+            z-index: 19;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        /* 主界面设计系统：统一的导航、个人信息、卡片和分界面布局。 */
+        .app-shell {
+            padding-bottom: 34px;
+        }
+
+        .topbar {
+            position: sticky;
+            z-index: 10;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            min-height: 78px;
+            padding: 14px 0;
+            background: rgba(247, 244, 238, .88);
+            backdrop-filter: blur(16px);
+        }
+
+        .topbar .brand {
+            flex: 0 0 auto;
+        }
+
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 4px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .65);
+        }
+
+        .nav-link {
+            min-height: 40px;
+            padding: 8px 16px;
+            border: 0;
+            border-radius: 999px;
+            color: var(--muted);
+            background: transparent;
+            cursor: pointer;
+            font: inherit;
+            font-size: 14px;
+            transition: color .2s, background .2s, transform .2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: var(--primary-dark);
+            box-shadow: 0 6px 14px rgba(53, 79, 82, .16);
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .online-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .online-pill::before {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #78b78e;
+            box-shadow: 0 0 0 4px rgba(120, 183, 142, .15);
+            content: "";
+        }
+
+        .profile-strip {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+            margin-top: 22px;
+            padding: 22px 26px;
+            border: 1px solid rgba(255, 255, 255, .9);
+            border-radius: 24px;
+            background: linear-gradient(120deg, rgba(255,255,255,.88), rgba(255,247,232,.78));
+            box-shadow: var(--shadow);
+        }
+
+        .profile-avatar {
+            display: grid;
+            width: 64px;
+            height: 64px;
+            place-items: center;
+            border: 4px solid rgba(255,255,255,.8);
+            border-radius: 22px;
+            color: white;
+            background: linear-gradient(145deg, var(--primary-dark), var(--primary));
+            box-shadow: 0 8px 18px rgba(53, 79, 82, .2);
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .profile-copy h2 {
+            margin: 0 0 5px;
+            color: var(--primary-dark);
+            font-size: 21px;
+        }
+
+        .profile-copy p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 22px;
+        }
+
+        .profile-stat {
+            display: grid;
+            gap: 3px;
+            text-align: right;
+        }
+
+        .profile-stat strong {
+            color: var(--primary-dark);
+            font-size: 21px;
+        }
+
+        .profile-stat span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .app-view {
+            padding-top: 30px;
+            animation: view-in .35s ease both;
+        }
+
+        @keyframes view-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .home-layout {
+            display: grid;
+            grid-template-columns: 1.25fr .75fr;
+            gap: 18px;
+        }
+
+        .welcome-card,
+        .quote-card,
+        .surface-card,
+        .view-banner {
+            border: 1px solid rgba(255, 255, 255, .88);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .welcome-card {
+            min-height: 290px;
+            padding: 34px;
+            background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,247,232,.84));
+        }
+
+        .welcome-card h1 {
+            max-width: 620px;
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: clamp(34px, 5vw, 58px);
+            line-height: 1.08;
+            letter-spacing: -.05em;
+        }
+
+        .welcome-card p:not(.eyebrow) {
+            max-width: 550px;
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.85;
+        }
+
+        .quote-card {
+            display: flex;
+            min-height: 290px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 28px;
+            color: white;
+            background: linear-gradient(145deg, #354f52, #52796f);
+        }
+
+        .quote-card .quote-mark {
+            color: #f2d39a;
+            font-size: 38px;
+            line-height: 1;
+        }
+
+        .quote-card blockquote {
+            margin: 8px 0;
+            font-size: 24px;
+            line-height: 1.5;
+        }
+
+        .quote-card small {
+            color: rgba(255,255,255,.7);
+        }
+
+        .content-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 38px 0 16px;
+        }
+
+        .content-heading h2 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 27px;
+        }
+
+        .content-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .shortcut-card {
+            display: flex;
+            min-height: 142px;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            color: var(--primary-dark);
+            background: var(--card);
+            cursor: pointer;
+            text-align: left;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+
+        .shortcut-card:hover {
+            border-color: rgba(82,121,111,.45);
+            box-shadow: 0 12px 26px rgba(53,79,82,.12);
+            transform: translateY(-4px);
+        }
+
+        .shortcut-icon {
+            display: grid;
+            width: 38px;
+            height: 38px;
+            place-items: center;
+            border-radius: 13px;
+            color: var(--primary-dark);
+            background: #e5eee9;
+            font-size: 20px;
+        }
+
+        .shortcut-card.anniversary .shortcut-icon { color: #b75e64; background: #fae5e3; }
+        .shortcut-card.study .shortcut-icon { color: #7d6aa8; background: #eee9f7; }
+        .shortcut-card.gallery .shortcut-icon { color: #b57b3d; background: #faeedb; }
+
+        .shortcut-card strong {
+            font-size: 17px;
+        }
+
+        .shortcut-card span:last-child {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .recent-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 14px;
+        }
+
+        .surface-card {
+            padding: 24px;
+            border-color: var(--line);
+            background: var(--card);
+            box-shadow: 0 10px 28px rgba(53,79,82,.06);
+        }
+
+        .surface-card h3 {
+            margin: 0 0 10px;
+            color: var(--primary-dark);
+            font-size: 19px;
+        }
+
+        .surface-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .mini-list {
+            display: grid;
+            gap: 14px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .mini-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .mini-list li:last-child { padding-bottom: 0; border-bottom: 0; }
+        .mini-list strong { color: var(--primary-dark); font-size: 14px; }
+        .mini-list span { color: var(--muted); font-size: 12px; }
+
+        .view-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 28px 30px;
+            background: linear-gradient(120deg, rgba(255,255,255,.9), rgba(255,247,232,.82));
+        }
+
+        .view-banner h1 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: clamp(30px, 5vw, 48px);
+            letter-spacing: -.04em;
+        }
+
+        .view-banner p {
+            margin: 8px 0 0;
+            color: var(--muted);
+        }
+
+        .back-button {
+            flex: 0 0 auto;
+            padding: 10px 16px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--primary-dark);
+            background: rgba(255,255,255,.65);
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .back-button:hover { background: white; }
+
+        .entry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .entry-card {
+            min-height: 190px;
+            padding: 23px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255,255,255,.76);
+            box-shadow: 0 8px 22px rgba(53,79,82,.05);
+        }
+
+        .entry-card .entry-date {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .08em;
+        }
+
+        .entry-card h3 {
+            margin: 12px 0 8px;
+            color: var(--primary-dark);
+            font-size: 19px;
+        }
+
+        .entry-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .study-overview {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .study-note,
+        .study-progress {
+            padding: 23px;
+            border: 1px solid #ddd5ee;
+            border-radius: 20px;
+            background: rgba(251,249,255,.88);
+        }
+
+        .study-note h3,
+        .study-progress h3 {
+            margin: 0 0 10px;
+            color: #62528a;
+            font-size: 19px;
+        }
+
+        .study-note p,
+        .study-progress p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .study-stat-row {
+            display: flex;
+            gap: 18px;
+            margin-top: 17px;
+        }
+
+        .study-stat strong {
+            display: block;
+            color: #62528a;
+            font-size: 24px;
+        }
+
+        .study-stat span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .study-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin: 30px 0 14px;
+        }
+
+        .study-toolbar h2 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 25px;
+        }
+
+        .topic-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .topic-filter {
+            min-height: 36px;
+            padding: 7px 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--muted);
+            background: rgba(255,255,255,.68);
+            cursor: pointer;
+            font: inherit;
+            font-size: 12px;
+        }
+
+        .topic-filter.active,
+        .topic-filter:hover {
+            border-color: #a998ca;
+            color: #62528a;
+            background: #f0ecf9;
+        }
+
+        .qa-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .qa-card {
+            border: 1px solid var(--line);
+            border-radius: 17px;
+            background: rgba(255,255,255,.8);
+            overflow: hidden;
+        }
+
+        .qa-card[hidden] { display: none; }
+
+        .qa-card summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            min-height: 62px;
+            padding: 15px 17px;
+            color: var(--primary-dark);
+            cursor: pointer;
+            font-weight: 700;
+            list-style: none;
+        }
+
+        .qa-card summary::-webkit-details-marker { display: none; }
+        .qa-card summary::after { color: var(--accent); content: "+"; font-size: 22px; font-weight: 400; }
+        .qa-card[open] summary::after { content: "−"; }
+
+        .qa-answer {
+            padding: 0 17px 17px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .qa-answer strong { color: var(--primary-dark); }
+        .qa-answer code { padding: 2px 5px; border-radius: 5px; color: #62528a; background: #f0ecf9; font-family: Consolas, monospace; font-size: 12px; }
+
+        @media (max-width: 780px) {
+            .study-overview { grid-template-columns: 1fr; }
+            .study-toolbar { align-items: flex-start; flex-direction: column; }
+            .qa-grid { grid-template-columns: 1fr; }
+        }
+
+        .anniversary-banner { background: linear-gradient(120deg, #fff5f0, #f9e7e6); }
+        .anniversary-banner h1 { color: #944d56; }
+        .anniversary-entry { border-color: #f1d4d1; background: rgba(255,248,246,.88); }
+        .anniversary-entry .entry-date { color: #c46d75; }
+
+        .study-banner { background: linear-gradient(120deg, #f8f5ff, #ece9f8); }
+        .study-banner h1 { color: #62528a; }
+        .study-entry { border-color: #ddd5ee; background: rgba(251,249,255,.88); }
+        .study-entry .entry-date { color: #8876b4; }
+
+        .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        .gallery-tile { min-height: 240px; display: flex; align-items: end; color: white; background: linear-gradient(145deg, #8aa39b, #d7a868); }
+        .gallery-tile:nth-child(2) { background: linear-gradient(145deg, #8497ad, #536a7f); }
+        .gallery-tile:nth-child(3) { background: linear-gradient(145deg, #b98871, #6f4a4c); }
+        .gallery-tile h3 { margin: 0 0 5px; color: white; }
+        .gallery-tile p { color: rgba(255,255,255,.78); }
+
+        .app-footer {
+            padding: 56px 0 12px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .dashboard-card {
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: var(--card);
+            box-shadow: 0 10px 28px rgba(53,79,82,.06);
+        }
+
+        .dashboard-card h3 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 19px;
+        }
+
+        .dashboard-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .dashboard-card-header span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .today-card {
+            background: linear-gradient(135deg, #fffaf1, #fff3df);
+        }
+
+        .today-date {
+            margin: 0 0 7px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .08em;
+        }
+
+        .today-card blockquote {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 22px;
+            line-height: 1.5;
+        }
+
+        .mood-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .mood-button {
+            min-width: 44px;
+            min-height: 44px;
+            padding: 7px 10px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            background: rgba(255,255,255,.66);
+            cursor: pointer;
+            font-size: 19px;
+            transition: transform .2s, border-color .2s, background .2s;
+        }
+
+        .mood-button:hover { transform: translateY(-2px); }
+        .mood-button.selected { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(224,159,62,.14); }
+
+        .mood-caption {
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .todo-list {
+            display: grid;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 44px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(247,244,238,.72);
+        }
+
+        .todo-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .todo-item label {
+            flex: 1;
+            color: var(--primary-dark);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .todo-item input:checked + label {
+            color: var(--muted);
+            text-decoration: line-through;
+        }
+
+        .todo-progress {
+            height: 7px;
+            margin-top: 16px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e7e1d6;
+        }
+
+        .todo-progress span {
+            display: block;
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--primary), #87a99c);
+            transition: width .25s ease;
+        }
+
+        .stat-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .stat-tile {
+            padding: 16px 12px;
+            border-radius: 16px;
+            background: #f1f5f1;
+            text-align: center;
+        }
+
+        .stat-tile strong {
+            display: block;
+            color: var(--primary-dark);
+            font-size: 25px;
+        }
+
+        .stat-tile span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .anniversary-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 17px;
+            align-items: center;
+            background: linear-gradient(135deg, #fff3ef, #f9e3e1);
+        }
+
+        .anniversary-icon {
+            display: grid;
+            width: 58px;
+            height: 58px;
+            place-items: center;
+            border-radius: 20px;
+            color: #b75e64;
+            background: rgba(255,255,255,.72);
+            font-size: 27px;
+        }
+
+        .anniversary-card h3 { color: #944d56; }
+        .anniversary-card p { margin: 5px 0 0; color: #a66a70; font-size: 13px; line-height: 1.6; }
+
+        .anniversary-countdown {
+            margin-top: 10px;
+            color: #944d56;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .mood-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .mood-calendar span {
+            display: grid;
+            min-height: 30px;
+            place-items: center;
+            border-radius: 9px;
+            color: var(--muted);
+            background: #f3f0ea;
+            font-size: 11px;
+        }
+
+        .mood-calendar span:nth-child(3n) { background: #f8e3bb; }
+        .mood-calendar span:nth-child(4n) { background: #dcece5; }
+        .mood-calendar span:nth-child(5n) { background: #f4dadd; }
+
+        @media (max-width: 780px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .stat-strip { gap: 7px; }
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
         @media (max-width: 780px) {
             .page {
                 width: min(100% - 24px, 620px);
@@ -391,184 +1304,573 @@
             .timeline-content {
                 grid-column: 2;
             }
+
+            .topbar {
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .top-nav {
+                order: 3;
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+            }
+
+            .nav-link { flex: 0 0 auto; }
+            .online-pill { display: none; }
+            .profile-strip { grid-template-columns: auto 1fr; padding: 18px; }
+            .profile-stats { grid-column: 1 / -1; justify-content: space-around; padding-top: 4px; border-top: 1px solid var(--line); }
+            .profile-stat { text-align: center; }
+            .home-layout, .recent-grid { grid-template-columns: 1fr; }
+            .shortcut-grid { grid-template-columns: repeat(2, 1fr); }
+            .entry-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .view-banner { align-items: flex-start; flex-direction: column; padding: 24px; }
         }
     </style>
 </head>
 
 <body>
-    <div class="page">
-        <header>
-            <a class="brand" href="#">
+    <section class="login-screen page" id="loginScreen" aria-labelledby="loginTitle">
+        <div class="login-card">
+            <div class="brand">
+                <span class="brand-mark">✦</span>
+                <span>我的生活记录</span>
+            </div>
+
+            <p class="eyebrow">A PRIVATE DIGITAL GARDEN</p>
+            <h1 id="loginTitle">欢迎回来</h1>
+            <p class="login-intro">登录后继续查看你的日记、学习资料和照片记忆。</p>
+
+            <form class="login-form" id="loginForm">
+                <label class="field">
+                    账号
+                    <input id="username" name="username" type="text" autocomplete="username" required>
+                </label>
+                <label class="field">
+                    密码
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                </label>
+                <p class="login-error" id="loginError" role="alert" aria-live="polite"></p>
+                <button class="button login-button" type="submit">进入我的空间</button>
+                <button class="button secondary guest-button" id="guestButton" type="button">游客访问</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="page app-shell" id="mainApp" hidden>
+        <header class="topbar">
+            <a class="brand" href="#home" data-view="home">
                 <span class="brand-mark">✦</span>
                 <span>我的生活记录</span>
             </a>
 
-            <nav>
-                <a href="#diary">日记</a>
-                <a href="#study">学习</a>
-                <a href="#gallery">相册</a>
-                <a href="#timeline">时间线</a>
+            <nav class="top-nav" aria-label="主导航">
+                <button class="nav-link active" type="button" data-view="home">首页</button>
+                <button class="nav-link" type="button" data-view="diary">日记</button>
+                <button class="nav-link" type="button" data-view="study">学习</button>
+                <button class="nav-link" type="button" data-view="anniversary">特殊纪念日</button>
+                <button class="nav-link" type="button" data-view="gallery">相册</button>
             </nav>
+
+            <div class="topbar-actions">
+                <span class="online-pill">今日在线</span>
+                <button class="logout-button" id="logoutButton" type="button">退出</button>
+            </div>
         </header>
 
         <main>
-            <section class="hero">
-                <div>
-                    <p class="eyebrow">MY LITTLE DIGITAL GARDEN</p>
-                    <h1>把生活写下来，慢慢长成自己的样子。</h1>
-                    <p class="hero-copy">
-                        这里记录日常、学习、灵感和照片。
-                        不追求完美，只保留真实发生过的片段。
-                    </p>
+            <section class="profile-strip" aria-label="个人信息">
+                <div class="profile-avatar">海</div>
+                <div class="profile-copy">
+                    <h2>你好，海山 👋</h2>
+                    <p>愿你今天也有值得记录的小事 · 正在慢慢成为更好的自己</p>
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-stat"><strong>12</strong><span>生活记录</span></div>
+                    <div class="profile-stat"><strong>08</strong><span>学习笔记</span></div>
+                    <div class="profile-stat"><strong>05</strong><span>特殊纪念日</span></div>
+                </div>
+            </section>
 
-                    <div class="hero-actions">
-                        <a class="button" href="#diary">阅读日记</a>
-                        <a class="button secondary" href="#study">查看学习资料</a>
+            <section class="app-view" data-view-panel="home" id="homeView">
+                <div class="home-layout">
+                    <article class="welcome-card">
+                        <p class="eyebrow">MY LITTLE DIGITAL GARDEN</p>
+                        <h1>把生活写下来，慢慢长成自己的样子。</h1>
+                        <p>这里是你的私人空间，记录日常、学习、灵感，还有那些值得珍藏的特殊时刻。</p>
+                        <div class="hero-actions">
+                            <button class="button" type="button" data-view="diary">写一篇日记</button>
+                            <button class="button secondary" type="button" data-view="anniversary">特殊纪念日</button>
+                        </div>
+                    </article>
+                    <aside class="quote-card">
+                        <span class="quote-mark">“</span>
+                        <blockquote>认真生活，记录每一个值得记住的瞬间。</blockquote>
+                        <small>2026 · 我的个人空间</small>
+                    </aside>
+                </div>
+
+                <div class="content-heading">
+                    <h2>去看看</h2>
+                    <p>选择一个区域，继续你的故事</p>
+                </div>
+                <div class="shortcut-grid">
+                    <button class="shortcut-card" type="button" data-view="diary">
+                        <span class="shortcut-icon">✎</span><strong>我的日记</strong><span>写给未来的自己 →</span>
+                    </button>
+                    <button class="shortcut-card study" type="button" data-view="study">
+                        <span class="shortcut-icon">✦</span><strong>学习资料</strong><span>把知识整理好 →</span>
+                    </button>
+                    <button class="shortcut-card anniversary" type="button" data-view="anniversary">
+                        <span class="shortcut-icon">◇</span><strong>特殊纪念日</strong><span>记住重要的日子 →</span>
+                    </button>
+                    <button class="shortcut-card gallery" type="button" data-view="gallery">
+                        <span class="shortcut-icon">▧</span><strong>照片记忆</strong><span>把风景留住 →</span>
+                    </button>
+                </div>
+
+                <div class="content-heading">
+                    <h2>最近的小片段</h2>
+                    <p>正在发生，也已经发生</p>
+                </div>
+                <div class="recent-grid">
+                    <article class="surface-card">
+                        <h3>网站的第一天</h3>
+                        <p>今天开始搭建自己的生活记录网站，希望以后可以把学习和日常都整理下来。</p>
+                    </article>
+                    <article class="surface-card">
+                        <ul class="mini-list">
+                            <li><strong>继续准备 Unity 面试</strong><span>2026.08</span></li>
+                            <li><strong>周末的片刻</strong><span>2026.09</span></li>
+                            <li><strong>还有很多故事</strong><span>待续</span></li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <article class="dashboard-card today-card">
+                        <div class="dashboard-card-header"><h3>今日状态</h3><span id="todayDate">今天</span></div>
+                        <p class="today-date">A SOFT DAY TO BEGIN</p>
+                        <blockquote>“给自己一点耐心，也给今天一点期待。”</blockquote>
+                        <div class="mood-row" aria-label="选择今天的心情">
+                            <button class="mood-button" type="button" data-mood="开心" aria-label="开心">☀️</button>
+                            <button class="mood-button" type="button" data-mood="平静" aria-label="平静">🌿</button>
+                            <button class="mood-button" type="button" data-mood="充满能量" aria-label="充满能量">⚡</button>
+                            <button class="mood-button" type="button" data-mood="想念" aria-label="想念">🌙</button>
+                        </div>
+                        <p class="mood-caption" id="moodCaption">选择一个表情，记录此刻的心情</p>
+                    </article>
+
+                    <article class="dashboard-card">
+                        <div class="dashboard-card-header"><h3>今日待办</h3><span id="todoCount">0 / 3 完成</span></div>
+                        <ul class="todo-list">
+                            <li class="todo-item"><input id="todo-one" type="checkbox"><label for="todo-one">整理一篇学习笔记</label></li>
+                            <li class="todo-item"><input id="todo-two" type="checkbox"><label for="todo-two">准备一份纪念日惊喜</label></li>
+                            <li class="todo-item"><input id="todo-three" type="checkbox"><label for="todo-three">记录今天的小事</label></li>
+                        </ul>
+                        <div class="todo-progress" aria-label="待办完成进度"><span id="todoProgress"></span></div>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <article class="dashboard-card">
+                        <div class="dashboard-card-header"><h3>记录统计</h3><span>2026 年 9 月</span></div>
+                        <div class="stat-strip">
+                            <div class="stat-tile"><strong>12</strong><span>日记篇数</span></div>
+                            <div class="stat-tile"><strong>08</strong><span>学习笔记</span></div>
+                            <div class="stat-tile"><strong>06</strong><span>连续记录天</span></div>
+                        </div>
+                        <div class="mood-calendar" aria-label="本月心情日历">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                            <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+                            <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card anniversary-card">
+                        <div class="anniversary-icon">✦</div>
+                        <div>
+                            <h3>特别纪念日</h3>
+                            <p>下一次纪念日 · 2026.10.01</p>
+                            <div class="anniversary-countdown"><span id="anniversaryDays">--</span> 天</div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="app-view" data-view-panel="diary" id="diaryView" hidden>
+                <div class="view-banner">
+                    <div><p class="eyebrow">MY DAILY NOTES</p><h1>我的日记</h1><p>把今天的心情，温柔地留给明天。</p></div>
+                    <button class="back-button" type="button" data-view="home">← 回到首页</button>
+                </div>
+                <div class="entry-grid">
+                    <article class="entry-card"><span class="entry-date">2026.09.08 · 生活</span><h3>网站的第一天</h3><p>今天开始搭建自己的生活记录网站，希望以后可以把学习和日常都整理下来。</p></article>
+                    <article class="entry-card"><span class="entry-date">2026.09.07 · 思考</span><h3>关于持续学习</h3><p>比起一次学很多，更重要的是每天都留下一点真正理解的东西。</p></article>
+                    <article class="entry-card"><span class="entry-date">2026.09.05 · 日常</span><h3>周末的片刻</h3><p>天气很好，出去走了走。生活不只有任务，也需要留一点空白。</p></article>
+                </div>
+            </section>
+
+            <section class="app-view" data-view-panel="study" id="studyView" hidden>
+                <div class="view-banner study-banner">
+                    <div><p class="eyebrow">KEEP LEARNING</p><h1>学习资料</h1><p>把好奇心变成真正属于自己的能力。</p></div>
+                    <button class="back-button" type="button" data-view="home">← 回到首页</button>
+                </div>
+                <div class="study-overview">
+                    <article class="study-note">
+                        <h3>面试复习路线</h3>
+                        <p>先掌握 C# 语言基础，再结合 Unity 生命周期、性能和工程实践回答。面试时尽量用“概念 → 原理 → 项目中的例子”组织答案。</p>
+                        <div class="study-stat-row"><div class="study-stat"><strong>20</strong><span>高频题</span></div><div class="study-stat"><strong>4</strong><span>主题</span></div><div class="study-stat"><strong>30m</strong><span>建议每日</span></div></div>
+                    </article>
+                    <article class="study-progress">
+                        <h3>今日小目标</h3>
+                        <p>完成 3 道 C# 题目，并能脱稿说出值类型、引用类型和装箱的区别。</p>
+                        <div class="todo-progress"><span style="width: 62%;"></span></div>
+                    </article>
+                </div>
+
+                <div class="study-toolbar">
+                    <h2>面试题与参考答案</h2>
+                    <div class="topic-filters" aria-label="题目分类筛选">
+                        <button class="topic-filter active" type="button" data-topic-filter="all">全部</button>
+                        <button class="topic-filter" type="button" data-topic-filter="csharp">C# 核心</button>
+                        <button class="topic-filter" type="button" data-topic-filter="unity">Unity</button>
+                        <button class="topic-filter" type="button" data-topic-filter="engineer">工程实践</button>
                     </div>
                 </div>
 
-                <aside class="hero-note">
-                    <span class="hero-note-label">TODAY'S NOTE</span>
-                    <blockquote>
-                        “认真生活，记录每一个值得记住的瞬间。”
-                    </blockquote>
-                    <small>2026 · 我的个人空间</small>
-                </aside>
-            </section>
-
-            <section id="diary">
-                <div class="section-heading">
-                    <h2>最近日记</h2>
-                    <p>写给未来的自己</p>
-                </div>
-
-                <div class="grid">
-                    <article class="card diary-card">
-                        <div>
-                            <div class="diary-date">2026.09.08</div>
-                            <h3>网站的第一天</h3>
-                            <p>今天开始搭建自己的生活记录网站，希望以后可以把学习和日常都整理下来。</p>
-                        </div>
-                        <span class="card-tag">生活</span>
-                    </article>
-
-                    <article class="card diary-card">
-                        <div>
-                            <div class="diary-date">2026.09.07</div>
-                            <h3>关于持续学习</h3>
-                            <p>比起一次学很多，更重要的是每天都留下一点真正理解的东西。</p>
-                        </div>
-                        <span class="card-tag">思考</span>
-                    </article>
-
-                    <article class="card diary-card">
-                        <div>
-                            <div class="diary-date">2026.09.05</div>
-                            <h3>周末的片刻</h3>
-                            <p>天气很好，出去走了走。生活不只有任务，也需要留一点空白。</p>
-                        </div>
-                        <span class="card-tag">日常</span>
-                    </article>
-                </div>
-            </section>
-
-            <section id="study">
-                <div class="section-heading">
-                    <h2>学习资料</h2>
-                    <p>把知识整理成自己的东西</p>
-                </div>
-
-                <div class="grid">
-                    <article class="card study-card">
-                        <span class="card-tag">Unity3D</span>
-                        <h3>Unity 客户端面试题</h3>
-                        <p>生命周期、协程、对象池、资源管理和性能优化。</p>
-                    </article>
-
-                    <article class="card study-card">
-                        <span class="card-tag">C#</span>
-                        <h3>C# 基础笔记</h3>
-                        <p>值类型、引用类型、集合、委托、事件和 GC。</p>
-                    </article>
-
-                    <article class="card study-card">
-                        <span class="card-tag">Web</span>
-                        <h3>网页部署记录</h3>
-                        <p>Git、Nginx、腾讯云服务器和域名解析的实践过程。</p>
-                    </article>
-                </div>
-            </section>
-
-            <section id="gallery">
-                <div class="section-heading">
-                    <h2>照片记忆</h2>
-                    <p>没有照片的日子，也值得被记住</p>
-                </div>
-
-                <div class="grid">
-                    <article class="card photo-card">
-                        <div>
-                            <h3>秋天的下午</h3>
-                            <p>阳光落在路边的树叶上</p>
-                        </div>
-                    </article>
-
-                    <article class="card photo-card">
-                        <div>
-                            <h3>路上的风景</h3>
-                            <p>去见想见的人，走想走的路</p>
-                        </div>
-                    </article>
-
-                    <article class="card photo-card">
-                        <div>
-                            <h3>平凡的一天</h3>
-                            <p>普通日子也有自己的光</p>
-                        </div>
-                    </article>
+                <div class="qa-grid">
+                    <details class="qa-card" data-topic="csharp" open>
+                        <summary>1. C# 值类型和引用类型有什么区别？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>值类型变量直接保存数据，通常分配在栈或内联存储中；引用类型变量保存对象地址，实际对象在托管堆上。赋值时值类型复制数据，引用类型复制引用，因此两个变量可能指向同一个对象。<br><strong>补充：</strong><code>struct</code>、<code>int</code> 是常见值类型，<code>class</code>、数组、<code>string</code> 是引用类型。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>2. ref、out、in 参数分别有什么用途？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong><code>ref</code> 要求调用前已初始化，可读可写；<code>out</code> 不要求调用前初始化，但方法必须赋值；<code>in</code> 按引用只读传递，适合避免大结构体复制。它们都改变了参数传递方式，但不能仅靠返回值类型重载。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>3. 什么是装箱和拆箱？如何避免性能问题？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>把值类型转换为 <code>object</code> 或接口类型会发生装箱，运行时会在堆上创建对象并复制数据；拆箱则把对象取回指定值类型。频繁装箱会增加 GC 压力，可使用泛型集合（如 <code>List&lt;int&gt;</code>）和泛型方法避免。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>4. virtual、override 和 new 的区别？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong><code>virtual</code> 声明可被子类重写的方法；<code>override</code> 表示子类真正参与多态重写；<code>new</code> 只是隐藏父类同名成员。当变量使用父类类型引用子类对象时，只有 override 会根据真实对象类型调用。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>5. 委托和事件有什么区别？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>委托是类型安全的方法引用，可以被赋值、传参和直接调用；事件是对委托的封装，外部只能订阅和取消订阅，不能直接触发或覆盖事件。事件常用于解耦，例如 UI 监听数据层状态变化。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>6. async/await 是否会自动创建新线程？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>不会。<code>async/await</code> 主要是把异步流程改写成易读形式，是否使用线程取决于任务来源。I/O 异步可以不占用线程等待；CPU 密集任务需要显式使用线程池等方式。Unity 主线程 API 仍必须在主线程调用。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="unity">
+                        <summary>7. Unity 中 Update、FixedUpdate、LateUpdate 如何选择？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong><code>Update</code> 随渲染帧执行，适合输入和普通逻辑；<code>FixedUpdate</code> 按固定时间步执行，适合 Rigidbody 物理；<code>LateUpdate</code> 在所有 Update 后执行，常用于相机跟随。不要在 FixedUpdate 中直接处理帧相关 UI。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="unity">
+                        <summary>8. Unity 协程的本质是什么？有什么限制？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>协程是由 Unity 驱动的迭代器状态机，每次 <code>yield</code> 暂停，之后在合适的帧继续执行。它不是后台线程，耗时计算仍会阻塞主线程；大量协程要注意生命周期、重复启动和对象销毁后的引用问题。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="engineer">
+                        <summary>9. 为什么要使用对象池？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>频繁 Instantiate/Destroy 会带来 CPU 开销和 GC 抖动。对象池预先创建对象，使用时取出，结束后重置并回收，适合子弹、特效、敌人等高频重复对象。关键是完善重置逻辑，避免状态残留。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="engineer">
+                        <summary>10. 如何定位 Unity 项目的性能瓶颈？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>先用 Profiler 判断 CPU、GPU、GC 或加载是否为瓶颈，再用 Frame Debugger、Memory Profiler 等工具缩小范围。常见优化包括减少 GC 分配、合批和降低 Overdraw、对象池、异步加载，以及避免每帧查找组件。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>11. 接口和抽象类应该如何选择？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>抽象类适合表达“属于同一类事物”，可以共享字段、构造逻辑和部分实现；接口适合定义能力或契约，一个类可以实现多个接口。面试回答时要结合扩展性：变化频繁的能力通常更适合接口。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>12. string 为什么是不可变类型？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>字符串不可变可以保证哈希值稳定，便于作为字典键，也让多线程共享更安全。连续拼接会创建多个临时对象，循环拼接应使用 <code>StringBuilder</code>；编译器会对常量字符串做驻留优化。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>13. Dictionary 的查找为什么通常是 O(1)？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>Dictionary 基于哈希表，通过 key 的哈希值定位桶，再比较相等性找到元素，平均复杂度是 O(1)。哈希冲突会让查找退化，因此 key 必须稳定实现 <code>Equals</code> 和 <code>GetHashCode</code>。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="csharp">
+                        <summary>14. LINQ 的延迟执行是什么？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>很多 LINQ 查询只构建表达式，不会立刻遍历数据，直到 <code>ToList</code>、<code>First</code>、<code>foreach</code> 等终结操作才执行。延迟执行适合组合查询，但要留意数据源变化和重复枚举带来的性能开销。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="unity">
+                        <summary>15. Awake、OnEnable、Start 的调用顺序是什么？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>对象加载时先调用 Awake；对象启用时调用 OnEnable；第一帧更新前调用 Start。Awake 适合自身初始化，OnEnable 适合注册事件，Start 适合依赖其他对象已完成初始化的逻辑。禁用对象不会调用 Start，直到首次启用。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="unity">
+                        <summary>16. 为什么不建议直接修改 Rigidbody 的 Transform？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>直接改 Transform 会绕过物理系统，可能造成穿透、抖动和碰撞检测异常。物理对象应在 FixedUpdate 中使用 <code>MovePosition</code>、<code>AddForce</code> 或设置速度，让引擎正确模拟运动。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="unity">
+                        <summary>17. Unity 中常见的 GC 分配来源有哪些？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>常见来源有每帧 new 对象、字符串拼接、装箱、临时数组、闭包、LINQ 和频繁 Instantiate。用 Profiler/GC Alloc 找到热点后，可通过缓存、非分配 API、对象池和预分配集合降低抖动。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="engineer">
+                        <summary>18. 如何设计可维护的 UI 与业务代码？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>让 UI 负责展示和用户输入，业务层负责规则和状态，数据层负责存取；通过接口、事件或消息传递减少互相引用。这样便于单元测试，也能避免一个 MonoBehaviour 同时承担过多职责。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="engineer">
+                        <summary>19. Resources、AssetBundle 和 Addressables 有什么区别？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>Resources 简单但不利于精细管理和热更新；AssetBundle 支持远程资源与版本控制，但需要自己处理依赖；Addressables 在 AssetBundle 之上提供地址化、依赖管理和异步加载，更适合中大型项目。</p></div>
+                    </details>
+                    <details class="qa-card" data-topic="engineer">
+                        <summary>20. Git 中如何处理一次错误提交？</summary>
+                        <div class="qa-answer"><p><strong>答案：</strong>已推送到共享分支的提交，优先使用 <code>git revert</code> 生成反向提交，保留历史；尚未共享的本地提交可以用 <code>git reset</code> 整理。提交前先看 diff，提交信息应说明改动目的，避免把构建产物和密钥加入仓库。</p></div>
+                    </details>
                 </div>
             </section>
 
-            <section id="timeline">
-                <div class="section-heading">
-                    <h2>我的时间线</h2>
-                    <p>正在发生，也已经发生</p>
+            <section class="app-view" data-view-panel="anniversary" id="anniversaryView" hidden>
+                <div class="view-banner anniversary-banner">
+                    <div><p class="eyebrow">SPECIAL MOMENTS</p><h1>特殊纪念日</h1><p>把值得记住的日子，温柔地收藏起来。</p></div>
+                    <button class="back-button" type="button" data-view="home">← 回到首页</button>
                 </div>
+                <div class="entry-grid">
+                    <article class="entry-card anniversary-entry"><span class="entry-date">2026.10.01 · 重要日期</span><h3>秋日纪念</h3><p>给平凡的日子加上一枚书签，提醒自己记得当时的心情。</p></article>
+                    <article class="entry-card anniversary-entry"><span class="entry-date">2026.12.31 · 年度回望</span><h3>这一年的最后一天</h3><p>回顾完成过的事，也为下一年留下一点温柔的期待。</p></article>
+                    <article class="entry-card anniversary-entry"><span class="entry-date">待记录 · 下一次</span><h3>值得庆祝的日子</h3><p>生日、节日、达成目标，都可以在这里留下专属记号。</p></article>
+                </div>
+            </section>
 
-                <div class="timeline">
-                    <article class="timeline-item">
-                        <span class="timeline-dot"></span>
-                        <span class="timeline-date">2026.09</span>
-                        <div class="timeline-content">
-                            <h3>开始制作个人网站</h3>
-                            <p>用 Git 管理项目，并把第一个版本部署到腾讯云。</p>
-                        </div>
-                    </article>
-
-                    <article class="timeline-item">
-                        <span class="timeline-dot"></span>
-                        <span class="timeline-date">2026.08</span>
-                        <div class="timeline-content">
-                            <h3>继续准备 Unity 面试</h3>
-                            <p>整理项目经历，复习 C#、Unity 和游戏客户端知识。</p>
-                        </div>
-                    </article>
-
-                    <article class="timeline-item">
-                        <span class="timeline-dot"></span>
-                        <span class="timeline-date">更早以前</span>
-                        <div class="timeline-content">
-                            <h3>还有很多故事</h3>
-                            <p>以后慢慢补上。</p>
-                        </div>
-                    </article>
+            <section class="app-view" data-view-panel="gallery" id="galleryView" hidden>
+                <div class="view-banner">
+                    <div><p class="eyebrow">MEMORY GALLERY</p><h1>照片记忆</h1><p>没有照片的日子，也值得被记住。</p></div>
+                    <button class="back-button" type="button" data-view="home">← 回到首页</button>
+                </div>
+                <div class="entry-grid gallery-grid">
+                    <article class="entry-card gallery-tile"><div><h3>秋天的下午</h3><p>阳光落在路边的树叶上</p></div></article>
+                    <article class="entry-card gallery-tile"><div><h3>路上的风景</h3><p>去见想见的人，走想走的路</p></div></article>
+                    <article class="entry-card gallery-tile"><div><h3>平凡的一天</h3><p>普通日子也有自己的光</p></div></article>
                 </div>
             </section>
         </main>
 
-        <footer>
-            © 2026 我的生活记录 · 写下今天，留给明天
-        </footer>
+        <footer class="app-footer">© 2026 我的生活记录 · 写下今天，留给明天</footer>
     </div>
+
+    <script>
+        // 修改这里即可更换前端演示登录的账号和密码。
+        const LOGIN_ACCOUNT = "admin";
+        const LOGIN_PASSWORD = "123456";
+        const SESSION_KEY = "my-life-records-authenticated";
+
+        const loginScreen = document.getElementById("loginScreen");
+        const mainApp = document.getElementById("mainApp");
+        const loginForm = document.getElementById("loginForm");
+        const loginError = document.getElementById("loginError");
+        const usernameInput = document.getElementById("username");
+        const logoutButton = document.getElementById("logoutButton");
+        const guestButton = document.getElementById("guestButton");
+        const viewButtons = document.querySelectorAll("[data-view]");
+        const viewPanels = document.querySelectorAll("[data-view-panel]");
+        const TODO_STORAGE_KEY = "my-life-records-todos";
+        const MOOD_STORAGE_KEY = "my-life-records-mood";
+        const todoInputs = [...document.querySelectorAll(".todo-item input")];
+        const todoCount = document.getElementById("todoCount");
+        const todoProgress = document.getElementById("todoProgress");
+        const moodButtons = [...document.querySelectorAll(".mood-button")];
+        const moodCaption = document.getElementById("moodCaption");
+
+        function refreshTodoProgress() {
+            const completed = todoInputs.filter((input) => input.checked).length;
+            todoCount.textContent = `${completed} / ${todoInputs.length} 完成`;
+            todoProgress.style.width = `${(completed / todoInputs.length) * 100}%`;
+            localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todoInputs.map((input) => input.checked)));
+        }
+
+        function loadDashboardState() {
+            const savedTodos = JSON.parse(localStorage.getItem(TODO_STORAGE_KEY) || "[]");
+            todoInputs.forEach((input, index) => { input.checked = savedTodos[index] === true; });
+            refreshTodoProgress();
+
+            const savedMood = localStorage.getItem(MOOD_STORAGE_KEY);
+            moodButtons.forEach((button) => button.classList.toggle("selected", button.dataset.mood === savedMood));
+            if (savedMood) moodCaption.textContent = `今天的心情：${savedMood}`;
+
+            const today = new Date();
+            document.getElementById("todayDate").textContent = today.toLocaleDateString("zh-CN", { month: "long", day: "numeric" });
+
+            const anniversary = new Date("2026-10-01T00:00:00");
+            const days = Math.max(0, Math.ceil((anniversary - today) / 86400000));
+            document.getElementById("anniversaryDays").textContent = days;
+        }
+
+        todoInputs.forEach((input) => input.addEventListener("change", refreshTodoProgress));
+        moodButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                localStorage.setItem(MOOD_STORAGE_KEY, button.dataset.mood);
+                moodButtons.forEach((item) => item.classList.toggle("selected", item === button));
+                moodCaption.textContent = `今天的心情：${button.dataset.mood}`;
+            });
+        });
+        loadDashboardState();
+
+        const topicFilters = [...document.querySelectorAll("[data-topic-filter]")];
+        const qaCards = [...document.querySelectorAll(".qa-card[data-topic]")];
+        topicFilters.forEach((filterButton) => {
+            filterButton.addEventListener("click", () => {
+                const topic = filterButton.dataset.topicFilter;
+                topicFilters.forEach((item) => item.classList.toggle("active", item === filterButton));
+                qaCards.forEach((card) => { card.hidden = topic !== "all" && card.dataset.topic !== topic; });
+            });
+        });
+
+        function showView(viewName) {
+            viewPanels.forEach((panel) => {
+                panel.hidden = panel.dataset.viewPanel !== viewName;
+            });
+
+            viewButtons.forEach((button) => {
+                button.classList.toggle("active", button.dataset.view === viewName && button.classList.contains("nav-link"));
+            });
+
+            if (window.location.hash !== `#${viewName}`) {
+                window.history.replaceState(null, "", `#${viewName}`);
+            }
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        viewButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                if (button.tagName === "A") event.preventDefault();
+                showView(button.dataset.view);
+            });
+        });
+
+        function showApp() {
+            loginScreen.hidden = true;
+            mainApp.hidden = false;
+            showView("home");
+        }
+
+        function showLogin() {
+            mainApp.hidden = true;
+            loginScreen.hidden = false;
+            loginForm.reset();
+            loginError.textContent = "";
+            usernameInput.focus();
+        }
+
+        if (sessionStorage.getItem(SESSION_KEY) === "true") {
+            showApp();
+        } else {
+            usernameInput.focus();
+        }
+
+        loginForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(loginForm);
+            const username = formData.get("username");
+            const password = formData.get("password");
+
+            if (username === LOGIN_ACCOUNT && password === LOGIN_PASSWORD) {
+                sessionStorage.setItem(SESSION_KEY, "true");
+                showApp();
+                window.scrollTo(0, 0);
+            } else {
+                loginError.textContent = "账号或密码不正确，请重新输入。";
+            }
+        });
+
+        guestButton.addEventListener("click", () => {
+            // 临时游客入口：跳过账号密码检查，但仍保持当前会话的登录状态。
+            sessionStorage.setItem(SESSION_KEY, "true");
+            showApp();
+            window.scrollTo(0, 0);
+        });
+
+        logoutButton.addEventListener("click", () => {
+            sessionStorage.removeItem(SESSION_KEY);
+            showLogin();
+        });
+
+        // 点击非交互区域时显示扩散波纹。
+        document.addEventListener("click", (event) => {
+            if (event.target.closest("button, a, input, label")) return;
+
+            const ripple = document.createElement("span");
+            ripple.className = "click-ripple";
+            ripple.setAttribute("aria-hidden", "true");
+            ripple.style.left = `${event.clientX}px`;
+            ripple.style.top = `${event.clientY}px`;
+            document.body.appendChild(ripple);
+            ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+        });
+
+        // 仅在有鼠标的设备上启用连续 Canvas 拖尾，避免触摸屏产生多余元素。
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const trailCanvas = document.createElement("canvas");
+            trailCanvas.className = "cursor-trail-canvas";
+            trailCanvas.setAttribute("aria-hidden", "true");
+            document.body.appendChild(trailCanvas);
+            const trailContext = trailCanvas.getContext("2d");
+            const trailPoints = [];
+            const trailLifetime = 720;
+            let trailFrame = null;
+
+            function resizeTrailCanvas() {
+                const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+                trailCanvas.width = window.innerWidth * pixelRatio;
+                trailCanvas.height = window.innerHeight * pixelRatio;
+                trailContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+            }
+
+            function drawTrail(now) {
+                trailContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                const cutoff = now - trailLifetime;
+                while (trailPoints.length && trailPoints[0].time < cutoff) trailPoints.shift();
+
+                for (let index = 1; index < trailPoints.length; index += 1) {
+                    const start = trailPoints[index - 1];
+                    const end = trailPoints[index];
+                    const age = now - end.time;
+                    const opacity = Math.max(0, 1 - age / trailLifetime);
+                    const middleX = (start.x + end.x) / 2;
+                    const middleY = (start.y + end.y) / 2;
+
+                    // 两层线叠加出霓虹效果：外层柔光，内层亮芯。
+                    trailContext.beginPath();
+                    trailContext.moveTo(start.x, start.y);
+                    trailContext.quadraticCurveTo(start.x, start.y, middleX, middleY);
+                    trailContext.quadraticCurveTo(end.x, end.y, end.x, end.y);
+                    trailContext.lineCap = "round";
+                    trailContext.lineJoin = "round";
+                    trailContext.globalCompositeOperation = "lighter";
+                    trailContext.shadowColor = `rgba(22, 169, 224, ${opacity * .78})`;
+                    trailContext.shadowBlur = 16;
+                    trailContext.lineWidth = 14 * Math.max(.18, opacity);
+                    trailContext.strokeStyle = `rgba(47, 111, 237, ${opacity * .28})`;
+                    trailContext.stroke();
+
+                    trailContext.shadowBlur = 5;
+                    trailContext.lineWidth = 4.2 * Math.max(.3, opacity);
+                    trailContext.strokeStyle = `rgba(220, 248, 255, ${opacity * .95})`;
+                    trailContext.stroke();
+                }
+
+                trailContext.globalCompositeOperation = "source-over";
+                trailContext.shadowBlur = 0;
+
+                if (trailPoints.length) {
+                    trailFrame = window.requestAnimationFrame(drawTrail);
+                } else {
+                    trailFrame = null;
+                }
+            }
+
+            document.addEventListener("pointermove", (event) => {
+                trailPoints.push({ x: event.clientX, y: event.clientY, time: performance.now() });
+                if (trailPoints.length > 100) trailPoints.shift();
+                if (!trailFrame) trailFrame = window.requestAnimationFrame(drawTrail);
+            });
+
+            window.addEventListener("resize", resizeTrailCanvas);
+            resizeTrailCanvas();
+        }
+    </script>
 </body>
 </html>
