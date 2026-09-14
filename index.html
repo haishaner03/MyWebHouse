@@ -1021,15 +1021,22 @@
         }
 
         .topic-filter {
-            min-height: 36px;
-            padding: 7px 12px;
+            min-height: 40px;
+            padding: 8px 16px;
             border: 1px solid var(--line);
             border-radius: 999px;
             color: var(--muted);
             background: rgba(255,255,255,.68);
             cursor: pointer;
             font: inherit;
-            font-size: 12px;
+            font-size: 13px;
+        }
+
+        .study-count {
+            margin-left: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 400;
         }
 
         .topic-filter.active,
@@ -1398,6 +1405,36 @@
             .entry-grid, .gallery-grid { grid-template-columns: 1fr; }
             .view-banner { align-items: flex-start; flex-direction: column; padding: 24px; }
         }
+        .back-to-top {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 30;
+            width: 46px;
+            height: 46px;
+            border: 0;
+            border-radius: 50%;
+            color: white;
+            background: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(53, 79, 82, .25);
+            cursor: pointer;
+            font-size: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity .25s, transform .25s;
+            pointer-events: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+        }
+
     </style>
 </head>
 
@@ -1490,7 +1527,7 @@
                 <div class="profile-stats">
                     <div class="profile-stat"><strong>12</strong><span>生活记录</span></div>
                     <div class="profile-stat"><strong>08</strong><span>学习笔记</span></div>
-                    <div class="profile-stat"><strong>05</strong><span>特殊纪念日</span></div>
+                    <div class="profile-stat"><strong id="anniversaryDaysShort">--</strong><span>天后纪念日</span></div>
                 </div>
             </section>
 
@@ -1574,30 +1611,6 @@
                     </article>
                 </div>
 
-                <div class="dashboard-grid">
-                    <article class="dashboard-card">
-                        <div class="dashboard-card-header"><h3>记录统计</h3><span>2026 年 9 月</span></div>
-                        <div class="stat-strip">
-                            <div class="stat-tile"><strong>12</strong><span>日记篇数</span></div>
-                            <div class="stat-tile"><strong>08</strong><span>学习笔记</span></div>
-                            <div class="stat-tile"><strong>06</strong><span>连续记录天</span></div>
-                        </div>
-                        <div class="mood-calendar" aria-label="本月心情日历">
-                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
-                            <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
-                            <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
-                        </div>
-                    </article>
-
-                    <article class="dashboard-card anniversary-card">
-                        <div class="anniversary-icon">✦</div>
-                        <div>
-                            <h3>特别纪念日</h3>
-                            <p>下一次纪念日 · 2026.10.01</p>
-                            <div class="anniversary-countdown"><span id="anniversaryDays">--</span> 天</div>
-                        </div>
-                    </article>
-                </div>
             </section>
 
             <section class="app-view" data-view-panel="diary" id="diaryView" hidden>
@@ -1631,7 +1644,7 @@
                 </div>
 
                 <div class="study-toolbar">
-                    <h2>面试题与参考答案</h2>
+                    <h2>面试题与参考答案 <span id="studyCount" class="study-count">共 20 题</span></h2>
                     <div class="topic-filters" aria-label="题目分类筛选">
                         <button class="topic-filter active" type="button" data-topic-filter="all">全部</button>
                         <button class="topic-filter" type="button" data-topic-filter="csharp">C# 核心</button>
@@ -1752,6 +1765,8 @@
         <footer class="app-footer">© 2026 我的生活记录 · 写下今天，留给明天</footer>
     </div>
 
+    <button class="back-to-top" id="backToTop" type="button" aria-label="返回顶部">↑</button>
+
     <script>
         // 修改这里即可更换前端演示登录的账号和密码。
         const LOGIN_ACCOUNT = "admin";
@@ -1796,7 +1811,10 @@
 
             const anniversary = new Date("2026-10-01T00:00:00");
             const days = Math.max(0, Math.ceil((anniversary - today) / 86400000));
-            document.getElementById("anniversaryDays").textContent = days;
+            const annivEl = document.getElementById("anniversaryDays");
+            if (annivEl) annivEl.textContent = days;
+            const shortEl = document.getElementById("anniversaryDaysShort");
+            if (shortEl) shortEl.textContent = days;
         }
 
         todoInputs.forEach((input) => input.addEventListener("change", refreshTodoProgress));
@@ -1816,6 +1834,8 @@
                 const topic = filterButton.dataset.topicFilter;
                 topicFilters.forEach((item) => item.classList.toggle("active", item === filterButton));
                 qaCards.forEach((card) => { card.hidden = topic !== "all" && card.dataset.topic !== topic; });
+                const visibleCount = qaCards.filter((c) => !c.hidden).length;
+                document.getElementById("studyCount").textContent = `共 ${visibleCount} 题`;
             });
         });
 
@@ -1827,6 +1847,8 @@
             viewButtons.forEach((button) => {
                 button.classList.toggle("active", button.dataset.view === viewName && button.classList.contains("nav-link"));
             });
+
+            document.querySelector(".profile-strip").hidden = viewName !== "home";
 
             if (window.location.hash !== `#${viewName}`) {
                 window.history.replaceState(null, "", `#${viewName}`);
@@ -1971,6 +1993,15 @@
             window.addEventListener("resize", resizeTrailCanvas);
             resizeTrailCanvas();
         }
+
+        // 返回顶部按钮
+        const backToTopBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+            backToTopBtn.classList.toggle("visible", window.scrollY > 400);
+        });
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
     </script>
 </body>
 </html>
