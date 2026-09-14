@@ -1645,14 +1645,17 @@
             overflow: hidden;
         }
 
-        .gallery-art svg {
+        .gallery-art svg,
+        .gallery-art img {
             width: 100%;
             height: 100%;
             display: block;
+            object-fit: cover;
             transition: transform .4s ease;
         }
 
-        .gallery-item:hover .gallery-art svg {
+        .gallery-item:hover .gallery-art svg,
+        .gallery-item:hover .gallery-art img {
             transform: scale(1.06);
         }
 
@@ -2277,8 +2280,8 @@
                             <button class="text-button" type="button" data-view="gallery">全部 →</button>
                         </div>
                         <div class="photo-preview-grid">
-                            <div class="photo-thumb" style="background: linear-gradient(135deg, #f5c97b, #e09f3e);"></div>
-                            <div class="photo-thumb" style="background: linear-gradient(135deg, #8497ad, #536a7f);"></div>
+                            <div class="photo-thumb" style="background-image: url('images/photo-1.jpg'); background-size: cover; background-position: center;"></div>
+                            <div class="photo-thumb" style="background-image: url('images/photo-2.jpg'); background-size: cover; background-position: center;"></div>
                             <div class="photo-thumb" style="background: linear-gradient(135deg, #b98871, #6f4a4c);"></div>
                             <div class="photo-thumb" style="background: linear-gradient(135deg, #2c3e50, #1a252f);"></div>
                         </div>
@@ -2488,13 +2491,13 @@
                     <button class="back-button" type="button" data-view="home">← 回到首页</button>
                 </div>
                 <div class="gallery-grid">
-                    <article class="gallery-item" data-title="秋天的下午" data-date="2026.09.10" data-desc="阳光落在路边的树叶上，风一吹就碎成满地金黄。">
-                        <div class="gallery-art"><svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f5c97b"/><stop offset="100%" stop-color="#e09f3e"/></linearGradient></defs><rect width="400" height="200" fill="url(#g1)"/><circle cx="320" cy="60" r="35" fill="#fff3d6" opacity=".9"/><path d="M0 160 Q100 120 200 150 Q300 180 400 140 L400 200 L0 200 Z" fill="#c98a4b" opacity=".6"/><rect x="80" y="120" width="8" height="50" fill="#6b4423"/><circle cx="84" cy="105" r="28" fill="#d97706" opacity=".8"/><circle cx="70" cy="115" r="20" fill="#b45309" opacity=".7"/></svg></div>
-                        <div class="gallery-info"><span class="gallery-date">2026.09.10</span><h3>秋天的下午</h3><p>阳光落在路边的树叶上</p></div>
+                    <article class="gallery-item" data-title="布偶猫" data-date="2026.09.14" data-desc="可爱的布偶猫，蓝眼睛重点色，毛茸茸的一团。">
+                        <div class="gallery-art"><img src="images/photo-1.jpg" alt="布偶猫"></div>
+                        <div class="gallery-info"><span class="gallery-date">2026.09.14</span><h3>布偶猫</h3><p>蓝眼睛的毛茸茸小可爱</p></div>
                     </article>
-                    <article class="gallery-item" data-title="路上的风景" data-date="2026.09.08" data-desc="去见想见的人，走想走的路，沿途的山和云都在替我开心。">
-                        <div class="gallery-art"><svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8497ad"/><stop offset="100%" stop-color="#536a7f"/></linearGradient></defs><rect width="400" height="200" fill="url(#g2)"/><ellipse cx="100" cy="50" rx="40" ry="15" fill="white" opacity=".4"/><ellipse cx="300" cy="70" rx="50" ry="18" fill="white" opacity=".3"/><path d="M0 140 L80 80 L160 130 L240 70 L320 120 L400 90 L400 200 L0 200 Z" fill="#3d4f5f" opacity=".7"/><path d="M0 170 L400 170 L400 200 L0 200 Z" fill="#2a3a48"/><path d="M180 200 L200 170 L220 200 Z" fill="#f5c97b" opacity=".6"/></svg></div>
-                        <div class="gallery-info"><span class="gallery-date">2026.09.08</span><h3>路上的风景</h3><p>去见想见的人，走想走的路</p></div>
+                    <article class="gallery-item" data-title="拼豆小挂件" data-date="2026.09.14" data-desc="Hello Kitty、小狐狸、小兔子和胡萝卜，都是一点点拼出来的。">
+                        <div class="gallery-art"><img src="images/photo-2.jpg" alt="拼豆小挂件"></div>
+                        <div class="gallery-info"><span class="gallery-date">2026.09.14</span><h3>拼豆小挂件</h3><p>Hello Kitty和小伙伴们</p></div>
                     </article>
                     <article class="gallery-item" data-title="平凡的一天" data-date="2026.09.05" data-desc="普通日子也有自己的光，窗台上趴着打盹的猫就是全部。">
                         <div class="gallery-art"><svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b98871"/><stop offset="100%" stop-color="#6f4a4c"/></linearGradient></defs><rect width="400" height="200" fill="url(#g3)"/><rect x="140" y="40" width="120" height="120" rx="6" fill="#f5ebe0" opacity=".25" stroke="#f5ebe0" stroke-width="3"/><line x1="200" y1="40" x2="200" y2="160" stroke="#f5ebe0" stroke-width="2" opacity=".5"/><line x1="140" y1="100" x2="260" y2="100" stroke="#f5ebe0" stroke-width="2" opacity=".5"/><ellipse cx="200" cy="175" rx="25" ry="12" fill="#3a2e2a" opacity=".6"/><circle cx="200" cy="160" r="12" fill="#3a2e2a" opacity=".6"/><path d="M190 152 L188 145 L196 150 Z" fill="#3a2e2a" opacity=".6"/><path d="M210 152 L212 145 L204 150 Z" fill="#3a2e2a" opacity=".6"/></svg></div>
