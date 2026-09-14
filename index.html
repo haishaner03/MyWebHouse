@@ -2987,34 +2987,14 @@
             showLogin();
         });
 
-        // ========== 留言板功能 ==========
-        const MESSAGES_STORAGE_KEY = "my-life-records-messages";
+        // ========== 留言板功能（后端接口） ==========
+        const MESSAGE_API = "messages.php";
         const messageText = document.getElementById("messageText");
         const messageCount = document.getElementById("messageCount");
         const messageList = document.getElementById("messageList");
         const submitMessageBtn = document.getElementById("submitMessage");
         const messageNickname = document.getElementById("messageNickname");
         const messageAvatar = document.getElementById("messageAvatar");
-
-        function getMessages() {
-            return JSON.parse(localStorage.getItem(MESSAGES_STORAGE_KEY) || "[]");
-        }
-
-        function saveMessages(messages) {
-            localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
-        }
-
-        function initMessages() {
-            const messages = getMessages();
-            if (messages.length === 0) {
-                messages.push(
-                    { id: 1, nickname: "管理员", content: "欢迎来到留言板！在这里说点什么吧~", date: "2026-09-14 10:00" },
-                    { id: 2, nickname: "游客", content: "这个网站好可爱，猫咪背景太治愈了！", date: "2026-09-14 11:30" }
-                );
-                saveMessages(messages);
-            }
-        }
-        initMessages();
 
         function updateMessageUserInfo() {
             const user = getCurrentUser();
@@ -3027,13 +3007,13 @@
             }
         }
 
-        function renderMessages() {
-            const messages = getMessages().sort((a, b) => b.id - a.id);
-            if (messages.length === 0) {
+        function renderMessages(messages) {
+            const sorted = [...messages].sort((a, b) => b.id - a.id);
+            if (sorted.length === 0) {
                 messageList.innerHTML = '<p class="message-empty">还没有留言，来说第一句吧~</p>';
                 return;
             }
-            messageList.innerHTML = messages.map(msg => `
+            messageList.innerHTML = sorted.map(msg => `
                 <div class="message-item">
                     <span class="message-avatar">${msg.nickname.charAt(0)}</span>
                     <div class="message-content">
@@ -3047,28 +3027,57 @@
             `).join("");
         }
 
+        async function loadMessages() {
+            try {
+                const res = await fetch(MESSAGE_API);
+                const data = await res.json();
+                if (data.success) {
+                    renderMessages(data.messages);
+                } else {
+                    messageList.innerHTML = '<p class="message-empty">留言加载失败，请刷新重试</p>';
+                }
+            } catch (e) {
+                messageList.innerHTML = '<p class="message-empty">留言板需要部署到服务器后才能使用（本地预览不支持）</p>';
+            }
+        }
+
         messageText.addEventListener("input", () => {
             messageCount.textContent = `${messageText.value.length} / 200`;
         });
 
-        submitMessageBtn.addEventListener("click", () => {
+        submitMessageBtn.addEventListener("click", async () => {
             const content = messageText.value.trim();
             if (!content) { alert("请输入留言内容"); return; }
             const user = getCurrentUser();
             const nickname = user ? user.nickname : "游客";
-            const now = new Date();
-            const date = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-            const messages = getMessages();
-            const newId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1;
-            messages.push({ id: newId, nickname, content, date });
-            saveMessages(messages);
-            messageText.value = "";
-            messageCount.textContent = "0 / 200";
-            renderMessages();
+
+            submitMessageBtn.disabled = true;
+            submitMessageBtn.textContent = "发布中...";
+
+            try {
+                const res = await fetch(MESSAGE_API, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nickname, content })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    messageText.value = "";
+                    messageCount.textContent = "0 / 200";
+                    await loadMessages();
+                } else {
+                    alert(data.error || "留言失败，请重试");
+                }
+            } catch (e) {
+                alert("留言失败，请确保网站已部署到服务器");
+            } finally {
+                submitMessageBtn.disabled = false;
+                submitMessageBtn.textContent = "发布留言";
+            }
         });
 
         updateMessageUserInfo();
-        renderMessages();
+        loadMessages();
 
         // 点击非交互区域时显示扩散波纹。
         document.addEventListener("click", (event) => {
