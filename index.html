@@ -994,7 +994,7 @@
 
         .shortcut-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 14px;
         }
 
@@ -1734,6 +1734,160 @@
             display: block;
         }
 
+        /* 登录/注册切换 */
+        .login-switch {
+            margin: 14px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .link-button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--primary);
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .link-button:hover {
+            color: var(--primary-dark);
+        }
+
+        /* 留言板 */
+        .message-banner {
+            background: linear-gradient(135deg, #e8f0ec, #d4e4dc);
+        }
+
+        .message-input-card {
+            margin-bottom: 24px;
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
+            background: var(--card);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .message-input-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .message-input-header strong {
+            color: var(--primary-dark);
+            font-size: 15px;
+        }
+
+        .message-input-header p {
+            margin: 2px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .message-avatar {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            flex: 0 0 auto;
+            place-items: center;
+            border-radius: 50%;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .message-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 14px 16px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: var(--bg);
+            color: var(--text);
+            font: inherit;
+            font-size: 14px;
+            line-height: 1.7;
+            resize: vertical;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .message-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(82,121,111,.12);
+        }
+
+        .message-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        .message-count {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .message-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .message-item {
+            display: flex;
+            gap: 14px;
+            padding: 18px 20px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
+            background: var(--card);
+            box-shadow: var(--shadow-xs);
+            animation: fade-up .3s ease;
+        }
+
+        .message-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .message-meta strong {
+            color: var(--primary-dark);
+            font-size: 14px;
+        }
+
+        .message-meta span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .message-content p {
+            margin: 0;
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.8;
+            word-break: break-word;
+        }
+
+        .message-empty {
+            padding: 40px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 14px;
+        }
+
         .lightbox-info {
             padding: 24px 28px 28px;
         }
@@ -2166,6 +2320,29 @@
                     </svg>
                     游客访问
                 </button>
+                <p class="login-switch">没有账号？<button type="button" class="link-button" id="showRegister">立即注册</button></p>
+            </form>
+
+            <form class="login-form" id="registerForm" hidden>
+                <label class="field">
+                    用户名
+                    <input id="regUsername" name="regUsername" type="text" required>
+                </label>
+                <label class="field">
+                    昵称
+                    <input id="regNickname" name="regNickname" type="text" required placeholder="留言时显示的名字">
+                </label>
+                <label class="field">
+                    密码
+                    <input id="regPassword" name="regPassword" type="password" required>
+                </label>
+                <label class="field">
+                    确认密码
+                    <input id="regPassword2" name="regPassword2" type="password" required>
+                </label>
+                <p class="login-error" id="registerError" role="alert" aria-live="polite"></p>
+                <button class="button login-button" type="submit">注册并登录</button>
+                <p class="login-switch">已有账号？<button type="button" class="link-button" id="showLogin">返回登录</button></p>
             </form>
         </div>
     </section>
@@ -2183,6 +2360,7 @@
                 <button class="nav-link" type="button" data-view="study">学习</button>
                 <button class="nav-link" type="button" data-view="anniversary">特殊纪念日</button>
                 <button class="nav-link" type="button" data-view="gallery">相册</button>
+                <button class="nav-link" type="button" data-view="message">留言板</button>
             </nav>
 
             <div class="topbar-actions">
@@ -2239,6 +2417,9 @@
                     </button>
                     <button class="shortcut-card gallery" type="button" data-view="gallery">
                         <span class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span><strong>照片记忆</strong><span>把风景留住 →</span>
+                    </button>
+                    <button class="shortcut-card message" type="button" data-view="message">
+                        <span class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><strong>留言板</strong><span>说点什么吧 →</span>
                     </button>
                 </div>
 
@@ -2526,6 +2707,28 @@
                     </article>
                 </div>
             </section>
+
+            <section class="app-view" data-view-panel="message" id="messageView" hidden>
+                <div class="view-banner message-banner">
+                    <div><p class="eyebrow">LEAVE A MESSAGE</p><h1>留言板</h1><p>说点什么吧，你的话会被温柔地记住。</p></div>
+                    <button class="back-button" type="button" data-view="home">← 回到首页</button>
+                </div>
+                <div class="message-input-card">
+                    <div class="message-input-header">
+                        <span class="message-avatar" id="messageAvatar">游</span>
+                        <div>
+                            <strong id="messageNickname">游客</strong>
+                            <p>写下你想说的话...</p>
+                        </div>
+                    </div>
+                    <textarea class="message-textarea" id="messageText" placeholder="说点什么吧..." rows="3" maxlength="200"></textarea>
+                    <div class="message-actions">
+                        <span class="message-count" id="messageCount">0 / 200</span>
+                        <button class="button" type="button" id="submitMessage">发布留言</button>
+                    </div>
+                </div>
+                <div class="message-list" id="messageList"></div>
+            </section>
         </main>
 
         <footer class="app-footer">© 2026 我的生活记录 · 写下今天，留给明天</footer>
@@ -2547,18 +2750,43 @@
     </div>
 
     <script>
-        // 修改这里即可更换前端演示登录的账号和密码。
-        const LOGIN_ACCOUNT = "admin";
-        const LOGIN_PASSWORD = "123456";
+        // 用户系统：localStorage 存储多用户，支持注册和昵称
+        const USERS_STORAGE_KEY = "my-life-records-users";
+        const CURRENT_USER_KEY = "my-life-records-current-user";
         const SESSION_KEY = "my-life-records-authenticated";
+
+        function initUsers() {
+            const users = JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || "[]");
+            if (users.length === 0) {
+                users.push({ username: "admin", password: "123456", nickname: "管理员" });
+                localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+            }
+        }
+        initUsers();
+
+        function getUsers() {
+            return JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || "[]");
+        }
+
+        function getCurrentUser() {
+            return JSON.parse(sessionStorage.getItem(CURRENT_USER_KEY) || "null");
+        }
+
+        function setCurrentUser(user) {
+            sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        }
 
         const loginScreen = document.getElementById("loginScreen");
         const mainApp = document.getElementById("mainApp");
         const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
         const loginError = document.getElementById("loginError");
+        const registerError = document.getElementById("registerError");
         const usernameInput = document.getElementById("username");
         const logoutButton = document.getElementById("logoutButton");
         const guestButton = document.getElementById("guestButton");
+        const showRegisterBtn = document.getElementById("showRegister");
+        const showLoginBtn = document.getElementById("showLogin");
         const viewButtons = document.querySelectorAll("[data-view]");
         const viewPanels = document.querySelectorAll("[data-view-panel]");
         const TODO_STORAGE_KEY = "my-life-records-todos";
@@ -2660,6 +2888,7 @@
             loginScreen.hidden = true;
             mainApp.hidden = false;
             showView("home");
+            if (typeof updateMessageUserInfo === "function") updateMessageUserInfo();
             setTimeout(() => {
                 const statNumbers = document.querySelectorAll('.profile-stat strong');
                 if (statNumbers[0]) animateNumber(statNumbers[0], 12, 1200);
@@ -2689,11 +2918,14 @@
         loginForm.addEventListener("submit", (event) => {
             event.preventDefault();
             const formData = new FormData(loginForm);
-            const username = formData.get("username");
+            const username = formData.get("username").trim();
             const password = formData.get("password");
+            const users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
 
-            if (username === LOGIN_ACCOUNT && password === LOGIN_PASSWORD) {
+            if (user) {
                 sessionStorage.setItem(SESSION_KEY, "true");
+                setCurrentUser({ username: user.username, nickname: user.nickname });
                 showApp();
                 window.scrollTo(0, 0);
             } else {
@@ -2701,17 +2933,142 @@
             }
         });
 
-        guestButton.addEventListener("click", () => {
-            // 临时游客入口：跳过账号密码检查，但仍保持当前会话的登录状态。
+        registerForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(registerForm);
+            const username = formData.get("regUsername").trim();
+            const nickname = formData.get("regNickname").trim();
+            const password = formData.get("regPassword");
+            const password2 = formData.get("regPassword2");
+
+            if (username.length < 2) { registerError.textContent = "用户名至少2个字符。"; return; }
+            if (nickname.length < 1) { registerError.textContent = "请填写昵称。"; return; }
+            if (password.length < 4) { registerError.textContent = "密码至少4个字符。"; return; }
+            if (password !== password2) { registerError.textContent = "两次密码输入不一致。"; return; }
+
+            const users = getUsers();
+            if (users.find(u => u.username === username)) {
+                registerError.textContent = "该用户名已被注册，请换一个。";
+                return;
+            }
+
+            users.push({ username, password, nickname });
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
             sessionStorage.setItem(SESSION_KEY, "true");
+            setCurrentUser({ username, nickname });
+            showApp();
+            window.scrollTo(0, 0);
+        });
+
+        showRegisterBtn.addEventListener("click", () => {
+            loginForm.hidden = true;
+            registerForm.hidden = false;
+            loginError.textContent = "";
+            registerError.textContent = "";
+        });
+
+        showLoginBtn.addEventListener("click", () => {
+            registerForm.hidden = true;
+            loginForm.hidden = false;
+            loginError.textContent = "";
+            registerError.textContent = "";
+        });
+
+        guestButton.addEventListener("click", () => {
+            sessionStorage.setItem(SESSION_KEY, "true");
+            setCurrentUser({ username: "guest", nickname: "游客" });
             showApp();
             window.scrollTo(0, 0);
         });
 
         logoutButton.addEventListener("click", () => {
             sessionStorage.removeItem(SESSION_KEY);
+            sessionStorage.removeItem(CURRENT_USER_KEY);
             showLogin();
         });
+
+        // ========== 留言板功能 ==========
+        const MESSAGES_STORAGE_KEY = "my-life-records-messages";
+        const messageText = document.getElementById("messageText");
+        const messageCount = document.getElementById("messageCount");
+        const messageList = document.getElementById("messageList");
+        const submitMessageBtn = document.getElementById("submitMessage");
+        const messageNickname = document.getElementById("messageNickname");
+        const messageAvatar = document.getElementById("messageAvatar");
+
+        function getMessages() {
+            return JSON.parse(localStorage.getItem(MESSAGES_STORAGE_KEY) || "[]");
+        }
+
+        function saveMessages(messages) {
+            localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
+        }
+
+        function initMessages() {
+            const messages = getMessages();
+            if (messages.length === 0) {
+                messages.push(
+                    { id: 1, nickname: "管理员", content: "欢迎来到留言板！在这里说点什么吧~", date: "2026-09-14 10:00" },
+                    { id: 2, nickname: "游客", content: "这个网站好可爱，猫咪背景太治愈了！", date: "2026-09-14 11:30" }
+                );
+                saveMessages(messages);
+            }
+        }
+        initMessages();
+
+        function updateMessageUserInfo() {
+            const user = getCurrentUser();
+            if (user) {
+                messageNickname.textContent = user.nickname;
+                messageAvatar.textContent = user.nickname.charAt(0);
+            } else {
+                messageNickname.textContent = "游客";
+                messageAvatar.textContent = "游";
+            }
+        }
+
+        function renderMessages() {
+            const messages = getMessages().sort((a, b) => b.id - a.id);
+            if (messages.length === 0) {
+                messageList.innerHTML = '<p class="message-empty">还没有留言，来说第一句吧~</p>';
+                return;
+            }
+            messageList.innerHTML = messages.map(msg => `
+                <div class="message-item">
+                    <span class="message-avatar">${msg.nickname.charAt(0)}</span>
+                    <div class="message-content">
+                        <div class="message-meta">
+                            <strong>${msg.nickname}</strong>
+                            <span>${msg.date}</span>
+                        </div>
+                        <p>${msg.content}</p>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        messageText.addEventListener("input", () => {
+            messageCount.textContent = `${messageText.value.length} / 200`;
+        });
+
+        submitMessageBtn.addEventListener("click", () => {
+            const content = messageText.value.trim();
+            if (!content) { alert("请输入留言内容"); return; }
+            const user = getCurrentUser();
+            const nickname = user ? user.nickname : "游客";
+            const now = new Date();
+            const date = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+            const messages = getMessages();
+            const newId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1;
+            messages.push({ id: newId, nickname, content, date });
+            saveMessages(messages);
+            messageText.value = "";
+            messageCount.textContent = "0 / 200";
+            renderMessages();
+        });
+
+        updateMessageUserInfo();
+        renderMessages();
 
         // 点击非交互区域时显示扩散波纹。
         document.addEventListener("click", (event) => {
