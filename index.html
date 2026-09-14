@@ -2910,7 +2910,9 @@
             loginScreen.hidden = true;
             mainApp.hidden = false;
             showView("home");
-            if (typeof updateMessageUserInfo === "function") updateMessageUserInfo();
+            setTimeout(() => {
+                if (typeof updateMessageUserInfo === "function") updateMessageUserInfo();
+            }, 0);
             setTimeout(() => {
                 const statNumbers = document.querySelectorAll('.profile-stat strong');
                 if (statNumbers[0]) animateNumber(statNumbers[0], 12, 1200);
