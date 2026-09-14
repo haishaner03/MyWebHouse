@@ -8,14 +8,71 @@
     <style>
         :root {
             --bg: #f7f4ee;
-            --card: rgba(255, 255, 255, 0.82);
+            --card: rgba(255, 255, 255, 0.85);
+            --card-solid: #ffffff;
             --text: #263238;
+            --text-secondary: #546163;
             --muted: #7b8586;
             --primary: #52796f;
             --primary-dark: #354f52;
+            --primary-light: #84a98c;
+            --primary-bg: #e8f0ec;
             --accent: #e09f3e;
+            --accent-dark: #c4862a;
+            --accent-light: #f0c878;
+            --accent-bg: #fdf4e3;
+            --warm: #c97b4a;
+            --warm-dark: #a85a3a;
+            --purple: #7d6aa8;
+            --purple-bg: #f0ecf9;
+            --pink: #b75e64;
+            --pink-bg: #fae5e3;
             --line: #e6e0d6;
+            --line-light: #f0ebe2;
+            --fs-xs: 12px;
+            --fs-sm: 13px;
+            --fs-base: 15px;
+            --fs-md: 17px;
+            --fs-lg: 20px;
+            --fs-xl: 24px;
+            --fs-2xl: 29px;
+            --fs-3xl: 36px;
+            --fs-hero: clamp(34px, 5vw, 58px);
+            --fw-regular: 400;
+            --fw-medium: 500;
+            --fw-semibold: 600;
+            --fw-bold: 700;
+            --fw-extrabold: 800;
+            --lh-tight: 1.2;
+            --lh-normal: 1.5;
+            --lh-relaxed: 1.75;
+            --lh-loose: 1.9;
+            --sp-1: 4px;
+            --sp-2: 8px;
+            --sp-3: 12px;
+            --sp-4: 16px;
+            --sp-5: 20px;
+            --sp-6: 24px;
+            --sp-8: 32px;
+            --sp-10: 40px;
+            --sp-12: 48px;
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 18px;
+            --radius-xl: 22px;
+            --radius-2xl: 26px;
+            --radius-full: 999px;
+            --shadow-xs: 0 2px 8px rgba(53,79,82,.06);
+            --shadow-sm: 0 4px 14px rgba(53,79,82,.08);
+            --shadow-md: 0 8px 24px rgba(53,79,82,.10);
+            --shadow-lg: 0 14px 36px rgba(53,79,82,.12);
+            --shadow-xl: 0 20px 50px rgba(53,79,82,.15);
             --shadow: 0 18px 45px rgba(53, 79, 82, 0.10);
+            --duration-fast: 0.15s;
+            --duration-normal: 0.25s;
+            --duration-slow: 0.4s;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         * {
@@ -717,6 +774,54 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scale-in {
+            from { opacity: 0; transform: scale(.94); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 首页元素入场动画 */
+        #homeView .profile-strip { animation: fade-up .6s var(--ease-out) .08s both; }
+        #homeView .home-layout { animation: fade-up .6s var(--ease-out) .16s both; }
+        #homeView .content-heading:nth-of-type(1) { animation: fade-up .5s var(--ease-out) .26s both; }
+        #homeView .shortcut-grid { animation: fade-up .5s var(--ease-out) .32s both; }
+        #homeView .content-heading:nth-of-type(2) { animation: fade-up .5s var(--ease-out) .4s both; }
+        #homeView .recent-grid { animation: fade-up .5s var(--ease-out) .46s both; }
+        #homeView .dashboard-grid { animation: fade-up .5s var(--ease-out) .54s both; }
+
+        /* 快捷入口卡片 stagger */
+        .shortcut-card { animation: fade-up .4s var(--ease-out) both; }
+        .shortcut-card:nth-child(1) { animation-delay: .34s; }
+        .shortcut-card:nth-child(2) { animation-delay: .40s; }
+        .shortcut-card:nth-child(3) { animation-delay: .46s; }
+        .shortcut-card:nth-child(4) { animation-delay: .52s; }
+
+        /* 按钮点击反馈 */
+        .button:active,
+        .shortcut-card:active,
+        .mood-button:active {
+            transform: scale(.96);
+        }
+
+        /* 视图切换时禁止入场动画重复 */
+        .app-view:not(#homeView) .profile-strip,
+        .app-view:not(#homeView) .home-layout,
+        .app-view:not(#homeView) .content-heading,
+        .app-view:not(#homeView) .shortcut-grid,
+        .app-view:not(#homeView) .recent-grid,
+        .app-view:not(#homeView) .dashboard-grid {
+            animation: none;
+        }
+
         .home-layout {
             display: grid;
             grid-template-columns: 1.25fr .75fr;
@@ -778,9 +883,10 @@
             max-width: 620px;
             margin: 0;
             color: var(--primary-dark);
-            font-size: clamp(34px, 5vw, 58px);
-            line-height: 1.08;
-            letter-spacing: -.05em;
+            font-size: var(--fs-hero);
+            font-weight: var(--fw-extrabold);
+            line-height: 1.1;
+            letter-spacing: -.03em;
         }
 
         .welcome-card p:not(.eyebrow) {
@@ -849,7 +955,9 @@
             margin: 0;
             padding-left: 14px;
             color: var(--primary-dark);
-            font-size: 27px;
+            font-size: var(--fs-2xl);
+            font-weight: var(--fw-bold);
+            letter-spacing: -.01em;
         }
 
         .content-heading h2::before {
@@ -924,8 +1032,11 @@
             border-radius: 15px;
             color: var(--primary-dark);
             background: linear-gradient(135deg, #e5eee9, #d4e4dc);
-            font-size: 22px;
             box-shadow: 0 4px 10px rgba(53,79,82,.1);
+        }
+
+        .shortcut-icon svg {
+            display: block;
         }
 
         .shortcut-card.anniversary .shortcut-icon { color: #b75e64; background: linear-gradient(135deg, #fae5e3, #f5d4d1); }
@@ -1821,16 +1932,16 @@
                 </div>
                 <div class="shortcut-grid">
                     <button class="shortcut-card" type="button" data-view="diary">
-                        <span class="shortcut-icon">✎</span><strong>我的日记</strong><span>写给未来的自己 →</span>
+                        <span class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><strong>我的日记</strong><span>写给未来的自己 →</span>
                     </button>
                     <button class="shortcut-card study" type="button" data-view="study">
-                        <span class="shortcut-icon">✦</span><strong>学习资料</strong><span>把知识整理好 →</span>
+                        <span class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><strong>学习资料</strong><span>把知识整理好 →</span>
                     </button>
                     <button class="shortcut-card anniversary" type="button" data-view="anniversary">
-                        <span class="shortcut-icon">◇</span><strong>特殊纪念日</strong><span>记住重要的日子 →</span>
+                        <span class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><strong>特殊纪念日</strong><span>记住重要的日子 →</span>
                     </button>
                     <button class="shortcut-card gallery" type="button" data-view="gallery">
-                        <span class="shortcut-icon">▧</span><strong>照片记忆</strong><span>把风景留住 →</span>
+                        <span class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span><strong>照片记忆</strong><span>把风景留住 →</span>
                     </button>
                 </div>
 
