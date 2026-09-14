@@ -1873,6 +1873,25 @@
             font-size: 12px;
         }
 
+        .message-delete {
+            margin-left: auto;
+            padding: 3px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            font: inherit;
+            font-size: 11px;
+            transition: all .2s;
+        }
+
+        .message-delete:hover {
+            border-color: #e57373;
+            color: #e57373;
+            background: #fff5f5;
+        }
+
         .message-content p {
             margin: 0;
             color: var(--text);
@@ -3020,12 +3039,46 @@
                         <div class="message-meta">
                             <strong>${msg.nickname}</strong>
                             <span>${msg.date}</span>
+                            <button class="message-delete" data-id="${msg.id}" type="button" title="删除留言">删除</button>
                         </div>
                         <p>${msg.content}</p>
                     </div>
                 </div>
             `).join("");
         }
+
+        async function deleteMessage(id) {
+            const password = prompt("请输入删除密码：");
+            if (password === null) return;
+            if (password !== "123456") {
+                alert("密码错误！");
+                return;
+            }
+            try {
+                const res = await fetch(MESSAGE_API, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id, password })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("删除成功！");
+                    await loadMessages();
+                } else {
+                    alert(data.error || "删除失败");
+                }
+            } catch (e) {
+                alert("删除失败，请确保网站已部署到服务器");
+            }
+        }
+
+        messageList.addEventListener("click", (e) => {
+            const deleteBtn = e.target.closest(".message-delete");
+            if (deleteBtn) {
+                const id = parseInt(deleteBtn.dataset.id);
+                deleteMessage(id);
+            }
+        });
 
         async function loadMessages() {
             try {

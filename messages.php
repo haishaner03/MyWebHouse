@@ -2,7 +2,7 @@
 date_default_timezone_set('Asia/Shanghai');
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -70,6 +70,36 @@ if ($method === 'POST') {
     file_put_contents($jsonFile, json_encode($messages, JSON_UNESCAPED_UNICODE));
 
     echo json_encode(['success' => true, 'message' => '留言成功', 'id' => $newId], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+if ($method === 'DELETE') {
+    $rawInput = file_get_contents('php://input');
+    $input = json_decode($rawInput, true);
+
+    if (!$input || empty($input['id']) || empty($input['password'])) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => '参数不完整'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    if ($input['password'] !== '123456') {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => '密码错误'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    $messages = json_decode(file_get_contents($jsonFile), true);
+    if (!is_array($messages)) $messages = [];
+
+    $id = intval($input['id']);
+    $messages = array_values(array_filter($messages, function($m) use ($id) {
+        return $m['id'] !== $id;
+    }));
+
+    file_put_contents($jsonFile, json_encode($messages, JSON_UNESCAPED_UNICODE));
+
+    echo json_encode(['success' => true, 'message' => '删除成功'], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
