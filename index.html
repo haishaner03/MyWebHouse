@@ -419,8 +419,18 @@
         }
 
         .guest-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             width: 100%;
             margin-top: 0;
+        }
+
+        .guest-cat {
+            flex: 0 0 auto;
+            width: 22px;
+            height: 22px;
         }
 
         .login-error {
@@ -1354,7 +1364,26 @@
                 </label>
                 <p class="login-error" id="loginError" role="alert" aria-live="polite"></p>
                 <button class="button login-button" type="submit">进入我的空间</button>
-                <button class="button secondary guest-button" id="guestButton" type="button">游客访问</button>
+                <button class="button secondary guest-button" id="guestButton" type="button">
+                    <svg class="guest-cat" viewBox="0 0 64 64" aria-hidden="true">
+                        <path d="M14 24 L10 8 L26 18 Z" fill="#f5c97b"/>
+                        <path d="M50 24 L54 8 L38 18 Z" fill="#f5c97b"/>
+                        <path d="M15 21 L13 12 L22 18 Z" fill="#f2a6a0"/>
+                        <path d="M49 21 L51 12 L42 18 Z" fill="#f2a6a0"/>
+                        <circle cx="32" cy="36" r="20" fill="#f5c97b"/>
+                        <circle cx="25" cy="34" r="2.5" fill="#3a2e2a"/>
+                        <circle cx="39" cy="34" r="2.5" fill="#3a2e2a"/>
+                        <circle cx="26" cy="33" r="0.8" fill="#fff"/>
+                        <circle cx="40" cy="33" r="0.8" fill="#fff"/>
+                        <path d="M30 40 L34 40 L32 43 Z" fill="#f2a6a0"/>
+                        <path d="M32 43 Q29 46 27 44 M32 43 Q35 46 37 44" stroke="#3a2e2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                        <line x1="14" y1="38" x2="22" y2="39" stroke="#3a2e2a" stroke-width="0.8" stroke-linecap="round"/>
+                        <line x1="14" y1="42" x2="22" y2="41" stroke="#3a2e2a" stroke-width="0.8" stroke-linecap="round"/>
+                        <line x1="50" y1="38" x2="42" y2="39" stroke="#3a2e2a" stroke-width="0.8" stroke-linecap="round"/>
+                        <line x1="50" y1="42" x2="42" y2="41" stroke="#3a2e2a" stroke-width="0.8" stroke-linecap="round"/>
+                    </svg>
+                    游客访问
+                </button>
             </form>
         </div>
     </section>
