@@ -634,6 +634,7 @@
         }
 
         .profile-strip {
+            position: relative;
             display: grid;
             grid-template-columns: auto 1fr auto;
             gap: 20px;
@@ -642,8 +643,21 @@
             padding: 22px 26px;
             border: 1px solid rgba(255, 255, 255, .9);
             border-radius: 24px;
-            background: linear-gradient(120deg, rgba(255,255,255,.88), rgba(255,247,232,.78));
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 95% 50%, rgba(224,159,62,.1) 0%, transparent 40%),
+                linear-gradient(120deg, rgba(255,255,255,.92), rgba(255,247,232,.85));
             box-shadow: var(--shadow);
+        }
+
+        .profile-strip::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, var(--accent), var(--primary));
         }
 
         .profile-avatar {
@@ -719,9 +733,45 @@
         }
 
         .welcome-card {
-            min-height: 290px;
-            padding: 34px;
-            background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,247,232,.84));
+            position: relative;
+            min-height: 300px;
+            padding: 36px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 88% 15%, rgba(224,159,62,.22) 0%, transparent 42%),
+                radial-gradient(circle at 95% 90%, rgba(82,121,111,.14) 0%, transparent 38%),
+                linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,248,235,.9));
+        }
+
+        .welcome-card::before {
+            content: "";
+            position: absolute;
+            right: -40px;
+            bottom: -30px;
+            width: 300px;
+            height: 200px;
+            background:
+                radial-gradient(circle at 72% 35%, #f5c97b 0%, #f5c97b 28px, transparent 29px),
+                radial-gradient(circle at 50% 80%, rgba(82,121,111,.18) 0%, rgba(82,121,111,.18) 60px, transparent 61px);
+            opacity: .8;
+            pointer-events: none;
+        }
+
+        .welcome-card::after {
+            content: "";
+            position: absolute;
+            right: 20px;
+            bottom: 0;
+            width: 260px;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(180,140,80,.12), rgba(82,121,111,.08));
+            clip-path: polygon(0% 100%, 25% 35%, 48% 65%, 70% 15%, 100% 100%);
+            pointer-events: none;
+        }
+
+        .welcome-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .welcome-card h1 {
@@ -742,29 +792,48 @@
         }
 
         .quote-card {
+            position: relative;
             display: flex;
-            min-height: 290px;
+            min-height: 300px;
             flex-direction: column;
             justify-content: space-between;
-            padding: 28px;
+            padding: 30px;
+            overflow: hidden;
             color: white;
-            background: linear-gradient(145deg, #354f52, #52796f);
+            background:
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,.1) 0%, transparent 50%),
+                linear-gradient(145deg, #c97b4a, #a85a3a);
+        }
+
+        .quote-card::before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.08);
+            pointer-events: none;
         }
 
         .quote-card .quote-mark {
-            color: #f2d39a;
-            font-size: 38px;
+            color: rgba(255,255,255,.35);
+            font-size: 56px;
             line-height: 1;
+            font-family: Georgia, serif;
         }
 
         .quote-card blockquote {
-            margin: 8px 0;
+            margin: 10px 0;
             font-size: 24px;
-            line-height: 1.5;
+            line-height: 1.55;
+            font-weight: 600;
         }
 
         .quote-card small {
-            color: rgba(255,255,255,.7);
+            color: rgba(255,255,255,.72);
+            font-size: 13px;
         }
 
         .content-heading {
@@ -772,13 +841,27 @@
             align-items: end;
             justify-content: space-between;
             gap: 16px;
-            margin: 38px 0 16px;
+            margin: 42px 0 18px;
         }
 
         .content-heading h2 {
+            position: relative;
             margin: 0;
+            padding-left: 14px;
             color: var(--primary-dark);
             font-size: 27px;
+        }
+
+        .content-heading h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            border-radius: 4px;
+            background: linear-gradient(180deg, var(--accent), var(--primary));
         }
 
         .content-heading p {
@@ -794,41 +877,60 @@
         }
 
         .shortcut-card {
+            position: relative;
             display: flex;
-            min-height: 142px;
+            min-height: 150px;
             flex-direction: column;
             align-items: flex-start;
             justify-content: space-between;
-            padding: 20px;
+            padding: 22px;
             border: 1px solid var(--line);
-            border-radius: 20px;
+            border-radius: 22px;
             color: var(--primary-dark);
             background: var(--card);
             cursor: pointer;
             text-align: left;
-            transition: transform .2s, box-shadow .2s, border-color .2s;
+            overflow: hidden;
+            transition: transform .22s, box-shadow .22s, border-color .22s;
+        }
+
+        .shortcut-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity .22s;
         }
 
         .shortcut-card:hover {
-            border-color: rgba(82,121,111,.45);
-            box-shadow: 0 12px 26px rgba(53,79,82,.12);
-            transform: translateY(-4px);
+            border-color: rgba(82,121,111,.4);
+            box-shadow: 0 16px 34px rgba(53,79,82,.13);
+            transform: translateY(-5px);
+        }
+
+        .shortcut-card:hover::before {
+            opacity: 1;
         }
 
         .shortcut-icon {
             display: grid;
-            width: 38px;
-            height: 38px;
+            width: 46px;
+            height: 46px;
             place-items: center;
-            border-radius: 13px;
+            border-radius: 15px;
             color: var(--primary-dark);
-            background: #e5eee9;
-            font-size: 20px;
+            background: linear-gradient(135deg, #e5eee9, #d4e4dc);
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(53,79,82,.1);
         }
 
-        .shortcut-card.anniversary .shortcut-icon { color: #b75e64; background: #fae5e3; }
-        .shortcut-card.study .shortcut-icon { color: #7d6aa8; background: #eee9f7; }
-        .shortcut-card.gallery .shortcut-icon { color: #b57b3d; background: #faeedb; }
+        .shortcut-card.anniversary .shortcut-icon { color: #b75e64; background: linear-gradient(135deg, #fae5e3, #f5d4d1); }
+        .shortcut-card.study .shortcut-icon { color: #7d6aa8; background: linear-gradient(135deg, #eee9f7, #e0d8f0); }
+        .shortcut-card.gallery .shortcut-icon { color: #b57b3d; background: linear-gradient(135deg, #faeedb, #f5e0c0); }
 
         .shortcut-card strong {
             font-size: 17px;
@@ -846,10 +948,25 @@
         }
 
         .surface-card {
+            position: relative;
             padding: 24px;
             border-color: var(--line);
-            background: var(--card);
-            box-shadow: 0 10px 28px rgba(53,79,82,.06);
+            border-radius: 22px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,250,242,.82));
+            box-shadow: 0 12px 30px rgba(53,79,82,.07);
+            overflow: hidden;
+        }
+
+        .surface-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: .6;
         }
 
         .surface-card h3 {
@@ -1260,11 +1377,25 @@
         }
 
         .dashboard-card {
-            padding: 24px;
+            position: relative;
+            padding: 26px;
             border: 1px solid var(--line);
-            border-radius: 22px;
-            background: var(--card);
-            box-shadow: 0 10px 28px rgba(53,79,82,.06);
+            border-radius: 24px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,250,242,.85));
+            box-shadow: 0 12px 30px rgba(53,79,82,.07);
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: .5;
         }
 
         .dashboard-card h3 {
@@ -1287,7 +1418,9 @@
         }
 
         .today-card {
-            background: linear-gradient(135deg, #fffaf1, #fff3df);
+            background:
+                radial-gradient(circle at 90% 10%, rgba(224,159,62,.18) 0%, transparent 45%),
+                linear-gradient(135deg, #fffaf1, #fff3df);
         }
 
         .today-date {
